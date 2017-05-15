@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="css/style2.css">
+<link rel="stylesheet" href="css/seahorse_slimhead.css">
+  <link rel="stylesheet" href="css/signup.css">
+  <link rel="stylesheet" href="css/style.css">
+
+<form id="loginForm"> 
+	<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor">   
+		<div class="gform_body">
+			<div class="fields">
+				<fieldset>
+					<legend>Enter your account number and postcode</legend>
+					<ul class="clearfix">
+						<li class="field billto">
+							<label for="AccountNumber">Account Number <span class="req">*</span> <span class="info modal icon-info2" data-modal="modal-account"></span></label>
+							<input data-val="true" data-val-required="The AccountNumber field is required." id="AccountNumber" name="AccountNumber" type="tel" value="">
+						</li>
+						<li class="field postcode">
+							<label for="Postcode">Postcode <span class="req">*</span> <span class="info modal icon-info2" data-modal="modal-postcode"></span></label>
+							<input data-val="true" data-val-required="The Postcode field is required." id="Postcode" maxlength="4" name="Postcode" pattern="[0-9]{4}" type="tel" value="">
+						</li>
+					</ul>
+					<input name="Continue" type="button" class="gform_button button" value="Start Order" onclick="PostData('http://localhost:4000/loginForm', 'loginForm');">
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</form>

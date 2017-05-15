@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="css/seahorse_slimhead.css">
+  <link rel="stylesheet" href="css/signup.css">
+  <link rel="stylesheet" href="css/style.css">
+<section id="content">
+<form id="switchForm" action="/natural-gas/sign-up/property-details" method="post">
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor">
+<div class="gform_body">
+            <fieldset>
+                <legend>What address do you want gas supplied to?</legend>
+                <div class="cleafix">
+                    <div class="field streetaddress">
+                        <label for="ConnectionStreet">Street Address <span class="req">*</span><span class="hint">Required</span></label>
+                        <input autocomplete="off" class="text placeholder" data-val="1/200 Smith Street" id="ConnectionStreet" name="ConnectionStreet" placeholder="1/200 Smith Street" spellcheck="false" type="text" value="">
+                    </div>
+                    <div class="field suburb">
+                        <label for="ConnectionSuburb">Suburb <span class="req">*</span><span class="hint">Required</span></label>
+                        <input autocomplete="off" class="text placeholder" data-val="Murdoch" id="ConnectionSuburb" name="ConnectionSuburb" placeholder="Murdoch" spellcheck="false" type="text" value="">
+                    </div>
+                    <div class="field postcode">
+                        <label for="ConnectionPostcode">Postcode</label>
+                        <input autocomplete="off" class="numbers-only text placeholder" data-val="6150" id="ConnectionPostcode" inputmode="numeric" maxlength="4" name="ConnectionPostcode" pattern="[0-9]{4}" placeholder="6150" spellcheck="false" type="number" value="">
+                    </div>
+                </div>
+            </fieldset>
+        </section>
+        <footer>
+            <div class="clearfix">
+                <input type="hidden" id="direction" name="direction">
+                <input type="hidden" id="clientTest" name="clientTest" value="JS=1">
+                <button class="blue continue icon" type="button" data-val="Continue" name="clicked" value="Continue" onclick="PostData('http://localhost:4000/switchAddress', 'switchForm');">Continue <span class="ico icon-chevron-right"></span></button>
+            </div>
+        </footer>
+</div>
+</div>
+</form></section>

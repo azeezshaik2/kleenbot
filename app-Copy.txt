@@ -1,0 +1,154 @@
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'team73',
+    password: '123456',
+    database: 'team73',
+});
+connection.connect(function(err){
+	if(!err) {
+		console.log("Database is connected ... ");    
+	} else {
+		console.log("Error connecting database ... ");    
+	}
+});
+
+
+var insertCustomerInfoStep1 = 'insert into customerinfo (FirstName) values("Yifeng")';
+connection.query(insertCustomerInfoStep1, function (err1, res1) {
+    if (err1){
+		console.log(err1);
+	}else{
+		console.log("CuctomerInfo1 updated!");
+	} 	
+});
+
+var insertCustomerInfoStep2 = 'UPDATE customerinfo SET title="Mr", lastname="XU", PhoneNumber="0430800531", EmailAddress="armasxu531@hotmail.com", DOB="31/05/1990", StreetAddress="7 Petra ST", City="East Fremantle", Postcode="6158", State="WA", LPGCylinderRequire=5, PromotionalCode="", IfCylinderExist="Yes", IfNewInstallation="", NoticeOfCompletion=NULL,Suppliers="" WHERE FirstName="Yifeng"';
+connection.query(insertCustomerInfoStep2, function (err1, res1) {
+    if (err1){
+		console.log(err1);
+	}else{
+		console.log("CuctomerInfo2 updated!");
+	} 	
+});
+
+
+var insertOrderInfoStep1 = 'insert into OrderInfo (AccNumber) values("1")';
+connection.query(insertOrderInfoStep1, function (err1, res1) {
+    if (err1){
+		console.log(err1);
+	}else{
+		console.log("OrderInfo1 updated!");
+	} 	
+});
+
+var insertOrderInfoStep2 = 'UPDATE OrderInfo SET OrderInfo="I want to make an order" WHERE AccNumber=1';
+connection.query(insertOrderInfoStep2, function (err1, res1) {
+    if (err1){
+		console.log(err1);
+	}else{
+		console.log("OrderInfo2 updated!");
+	} 	
+});
+
+
+var insertCreditCardInfoStep1 = 'insert into CreditCardInfo (OrderID) values("1")';
+connection.query(insertCreditCardInfoStep1, function (err1, res1) {
+    if (err1){
+		console.log(err1);
+	}else{
+		console.log("CreditCardInfo1 updated!");
+	} 	
+});
+
+var insertCreditCardInfoStep2 = 'UPDATE CreditCardInfo SET CardType="Bankwest", CardNumber="123123123", ExpMonth="02", ExpYear="20", CVVCode="123" WHERE OrderID=1';
+connection.query(insertCreditCardInfoStep2, function (err1, res1) {
+    if (err1){
+		console.log(err1);
+	}else{
+		console.log("CreditCardInfo2 updated!");
+	} 	
+});
+
+
+
+/*
+Queries for creating table !!!!must in the correct following order!!!!
+
+
+CREATE TABLE CustomerInfo (
+AccNumber INT NOT NULL AUTO_INCREMENT, 
+Title varchar(10), 
+FirstName varchar(20), 
+LastName varchar(20), 
+PhoneNumber varchar(10), 
+EmailAddress varchar(50), 
+DOB varchar(10), 
+StreetAddress varchar(50), 
+City varchar(50), 
+Postcode varchar(10), 
+State varchar(50),
+LPGCylinderRequire int(2), 
+PromotionalCode varchar(10), 
+IfCylinderExist varchar(5),
+IfNewInstallation varchar(5),
+NoticeOfCompletion Blob,
+Suppliers varchar(20),
+PRIMARY KEY (AccNumber)
+);
+
+*************************************************************************
+*************************************************************************
+
+insert into customerinfo (FirstName) values("Yifeng");
+UPDATE customerinfo SET title="Mr", lastname="XU", PhoneNumber="0430800531", EmailAddress="armasxu531@hotmail.com", DOB="31/05/1990", StreetAddress="7 Petra ST", City="East Fremantle", Postcode="6158", State="WA", LPGCylinderRequire=5, PromotionalCode="", IfCylinderExist="Yes", IfNewInstallation="", NoticeOfCompletion=NULL,Suppliers="" WHERE FirstName="Yifeng";
+
+
+
+CREATE TABLE OrderInfo (
+  OrderID int PRIMARY KEY AUTO_INCREMENT, 
+  OrderInfo varchar(200),
+  AccNumber int,
+  INDEX par_ind (AccNumber),
+  CONSTRAINT fk_customerinfo FOREIGN KEY (AccNumber)
+  REFERENCES CustomerInfo(AccNumber)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
+);
+
+insert into OrderInfo (AccNumber) values("1");
+UPDATE OrderInfo SET OrderInfo="I want to make an order" WHERE AccNumber=1;
+
+*************************************************************************
+*************************************************************************
+
+CREATE TABLE CreditCardInfo (
+  CreditCardID int PRIMARY KEY AUTO_INCREMENT, 
+  OrderID int,
+  CardType varchar(50), 
+  CardNumber varchar(25), 
+  ExpMonth varchar(2), 
+  ExpYear varchar(4), 
+  CVVCode varchar(4),
+  INDEX par_ind (OrderID),
+  CONSTRAINT fk_OrderInfo FOREIGN KEY (OrderID)
+  REFERENCES OrderInfo(OrderID)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
+);
+
+insert into CreditCardInfo (OrderID) values("1");
+UPDATE CreditCardInfo SET CardType="Bankwest", CardNumber="123123123", ExpMonth="02", ExpYear="20", CVVCode="123" WHERE OrderID=1;
+
+
+ALTER TABLE CustomerInfo AUTO_INCREMENT=3965;
+ALTER TABLE OrderInfo AUTO_INCREMENT=3965;
+ALTER TABLE CreditCardInfo AUTO_INCREMENT=3965;
+
+
+
+
+
+*/
+

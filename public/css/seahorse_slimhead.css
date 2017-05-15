@@ -1,0 +1,272 @@
+@import url("../fonts/seahorse/style.css");
+    #skiptocontent {
+        position:absolute;
+        z-index:9999;
+        top:-9999px;
+        left:-9999px;
+        display:block;
+        padding:0.5em 0.66em;
+        background:#447ca5;
+        color:#FFF;
+        text-decoration:none;
+        box-shadow: 0 0.1em 0.25em rgba(0,0,0,0.10);
+        font-style:italic;
+        font-weight:600;
+        -webkit-border-radius:0.25em;
+        -moz-border-radius:0.25em;
+        border-radius:0.25em;
+    }
+    #skiptocontent:focus {
+        top:0.5em;
+        left:0.5em;
+    }
+    .wrapper {
+	    position:relative;	
+        width:90%;
+        max-width:1280px;
+        margin:0 auto;
+    }
+    .wrapper:after {
+        display: block;
+        visibility: hidden;
+        clear: both;
+        height: 0;
+        content: "&nbsp;";
+    }
+    #main {
+        background-color:#FDFDFD;
+    }
+    #header.basic,
+    #footer.basic {
+        position:relative;
+        font-size: 16px;
+        -webkit-box-sizing:border-box;  
+        -moz-box-sizing:border-box;  
+        box-sizing:border-box;   
+        font-family:'Asap',Arial,Helvetica,sans-serif;
+        -webkit-font-smoothing: antialiased;   
+    }
+    #header.basic {
+        height:5em;
+        background: #ffffff;
+        background: -moz-linear-gradient(top,  #ffffff 0%, #f0f9ff 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f0f9ff));
+        background: -webkit-linear-gradient(top,  #ffffff 0%,#f0f9ff 100%);
+        background: -o-linear-gradient(top,  #ffffff 0%,#f0f9ff 100%);
+        background: -ms-linear-gradient(top,  #ffffff 0%,#f0f9ff 100%);
+        background: linear-gradient(to bottom,  #ffffff 0%,#f0f9ff 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f9ff',GradientType=0 );
+        box-shadow:0 0.075em 0.5em rgba(0,0,0,0.33);
+    }
+    #header.basic a.logo {
+        display:block;
+        float:left;
+        height:1.75em;
+        margin:1.625em 0 0 0;
+    }
+    #header.basic a.logo img {
+        width:auto;
+        height:1.75em;   
+    }
+    #header.basic a.phone {
+        position:relative;
+        float:right;
+        height:3em;
+        padding-left:3em;
+        margin:1em 0 0 0;
+        color:#005686;
+        text-decoration:none;
+    }
+    #header.basic a.phone:hover,
+    #header.basic a.phone:focus {
+        color:#009fe3;
+    }
+    #header.basic a.phone .ico {
+        position:absolute;
+        display:block;
+        left:0;
+        top:0.25em;
+        font-size:2em;
+    }
+    #header.basic a.phone:hover .ico,
+    #header.basic a.phone:focus .ico {
+        -webkit-animation: phoneCall .75s linear infinite;
+        animation:         phoneCall .75s linear infinite;
+    }
+    #header.basic a.phone h6 {
+        font-style:italic;
+        font-size:1em;
+        margin:0;
+        line-height:1.25em;
+        font-family:'Asap',Arial,Helvetica,sans-serif;
+    }
+    #header.basic a.phone h4 {
+        font-size:1.25em;
+        font-weight:600;
+        margin:0;
+        line-height:1.25em;
+        font-family:'Asap',Arial,Helvetica,sans-serif;
+    }
+    #footer.basic {
+        padding:0;
+        background:#f6f6f6;
+        color:#FFF;
+    }
+    #footer.basic > .wrapper {
+        padding:2em 0;   
+    }
+    #footer.basic > .wrapper ul.kiosk-nav {
+        padding:0;
+        margin:0;
+        border:none;
+        box-shadow:none;
+    }
+    #footer.basic .branding {
+        background:#003760;
+        padding:2em 0;
+    }
+    #footer.basic .branding .copyright {
+        float:left;
+        font-size:0.9em;
+        color:#00adef;
+    }
+    #footer.basic .branding .copyright .khlogo {
+        display:block;
+        width:10em;
+        height:auto;
+        margin-bottom:1em;
+    }
+    #footer.basic .branding .wes {
+        float:right;
+        display:block;
+        height:3em;
+    }
+@keyframes phoneCall {
+  from {
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  15% {
+    -webkit-transform: translate3d(-10%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    transform: translate3d(-10%, 0, 0) rotate3d(0, 0, 1, -10deg);
+  }
+
+  30% {
+    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 10deg);
+    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 10deg);
+  }
+
+  45% {
+    -webkit-transform: translate3d(-10%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    transform: translate3d(-10%, 0, 0) rotate3d(0, 0, 1, -10deg);
+  }
+
+  60% {
+    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 10deg);
+    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 10deg);
+  }
+
+  75% {
+    -webkit-transform: translate3d(-10%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    transform: translate3d(-10%, 0, 0) rotate3d(0, 0, 1, -10deg);
+  }
+
+  to {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@media screen and (max-width:940px) {
+    #header.basic,
+    #footer.basic {
+        font-size:14px;
+    }
+    #header.basic {
+        height:4em;   
+    }
+    #header.basic a.logo {
+        height:1.5em;
+        margin:1.25em 0;
+    }
+    #header.basic a.logo img {
+        height:1.5em;   
+    }
+    #header.basic a.phone {
+        margin:0.5em 0;
+    }
+}
+@media screen and (max-width:690px) {
+    #header.basic,
+    #footer.basic {
+        font-size:13px;
+    }
+    #footer.basic .branding .copyright {
+        float:none;   
+        text-align:center;
+        margin-bottom:1.25em;
+    }
+    #footer.basic .branding .copyright .khlogo {
+        width:40%;
+        max-width:10em;
+        margin:0 auto 1em auto;   
+    }
+    #footer.basic .branding .wes {
+        float:none;
+        width:5em;
+        height:auto;
+        margin:0 auto;
+    }
+}
+@media screen and (max-width:480px) {
+    #header.basic,
+    #footer.basic {
+        font-size:12px;
+    }
+    #header.basic a.phone {
+        padding:0;
+        height:2em;
+        margin:1em 0;
+    }
+    #header.basic a.phone .ico {
+        position:relative;
+        top:0;
+    }
+    #header.basic a.phone h4,
+    #header.basic a.phone h6 {
+        display:none;
+    }
+}
+.payment-offline {
+    position: relative;
+    width:100%;
+    max-width:30em;
+    margin:2em auto;
+    background: white;
+    border: solid 1px #db3d31;
+    padding: 1em 1em 1em 4em;
+    color: #db3d31;
+    border-radius: 0.25em;
+    font-size:1.25em;
+    box-shadow: 0 0.1em 0.05em rgba(0,0,0,0.075); 
+}
+.payment-offline .ico {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    font-size: 2em;
+}
+.payment-offline h4 {
+    font-size: 1.1em;
+    margin-bottom: 0.25em;
+    font-weight: 600;
+    color: #db3d31;
+}
+.payment-offline p {
+    color: #db3d31;
+    line-height: 1.25em;
+    margin-bottom: 0.25em;
+}
+.payment-offline p:last-child {
+    margin-bottom:0;
+}
