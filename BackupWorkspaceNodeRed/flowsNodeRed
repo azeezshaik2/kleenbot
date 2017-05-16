@@ -1,0 +1,3324 @@
+{
+  "_id": "kleenheatwatson/flow",
+  "_rev": "151-077bcb9d289d3aa3b783f4ef18ef4130",
+  "flow": [
+    {
+      "id": "888ff3de.7f795",
+      "type": "tab",
+      "label": "Hello World"
+    },
+    {
+      "id": "7837441f.4bb16c",
+      "type": "tab",
+      "label": "Beginner HTML"
+    },
+    {
+      "id": "dbc3db37.774bc8",
+      "type": "tab",
+      "label": "Interpreter"
+    },
+    {
+      "id": "2408266b.78067a",
+      "type": "tab",
+      "label": "OK Watson"
+    },
+    {
+      "id": "f5497c53.1e3c5",
+      "type": "tab",
+      "label": "Messenger webhook"
+    },
+    {
+      "id": "a317a9ef.096998",
+      "type": "tab",
+      "label": "Watson TV"
+    },
+    {
+      "id": "8314b320.0c26b",
+      "type": "twitter-credentials",
+      "z": "",
+      "screen_name": "@HiHuman3"
+    },
+    {
+      "id": "9960b941.f66258",
+      "type": "inject",
+      "z": "888ff3de.7f795",
+      "name": "Hello  W orld inject",
+      "topic": "",
+      "payload": "Hello, this is my first Node - RED application .",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 136.5,
+      "y": 100,
+      "wires": [
+        [
+          "ea0f87de.845938"
+        ]
+      ]
+    },
+    {
+      "id": "920e4d13.6946e",
+      "type": "debug",
+      "z": "888ff3de.7f795",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 647.5,
+      "y": 241,
+      "wires": []
+    },
+    {
+      "id": "cc832b1f.1730f8",
+      "type": "watson-translator",
+      "z": "888ff3de.7f795",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "es",
+      "password": "MurD0ch17!Sem3st3r1",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "es",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 296.5,
+      "y": 230,
+      "wires": [
+        [
+          "dc8e1718.6e7f38"
+        ]
+      ]
+    },
+    {
+      "id": "936c5374.d0c35",
+      "type": "http in",
+      "z": "7837441f.4bb16c",
+      "name": "HTTP Hello World",
+      "url": "/hw",
+      "method": "get",
+      "swaggerDoc": "",
+      "x": 158.5,
+      "y": 263,
+      "wires": [
+        [
+          "5589252f.c6ce6c"
+        ]
+      ]
+    },
+    {
+      "id": "7c50791f.84d7a8",
+      "type": "http response",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "x": 593.5,
+      "y": 240,
+      "wires": []
+    },
+    {
+      "id": "5589252f.c6ce6c",
+      "type": "template",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "field": "payload",
+      "fieldType": "msg",
+      "format": "handlebars",
+      "syntax": "mustache",
+      "template": "<html>\n<head>\n<title>Hello World</title>\n</head>\n<body>\n    \n    <div>Hello to Watson on Node-RED</div>\n    \n    <div id=\"id_hello\"><span>I think you are typing text in:</span>\n            &nbsp;\n       <span id=\"id_textlang\"></span></div>\n    \n    <form id=\"id_form\">\n        <div>\n            <span>\n            Enter your text to be processed:\n            </span>\n            <span>\n                <input type=\"text\" name=\"name\" id=\"id_text\"/>\n            </span>\n        </div>\n        <div>\n            <input type=\"submit\" value=\"Enter\" id=\"id_enter\"/>\n        </div>\n    </form>   \n\n<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js\">\n</script>\n\n<script type=\"text/javascript\">\n\n$(document).ready(function(){\n    setupPage();\n});\n\nvar LANGUAGES = { \n    'ar' : 'Arabic',\n    'en': 'English' ,\n    'es': 'Spanish',\n    'fr': 'French',\n    'it': 'Italian',\n    'de': 'German',\n    'pt': 'Portuguese',\n    'ko': 'Korean',\n    'zh': 'Chinese'\n};\n\n\nfunction setupPage(){\n    $('#id_hello').hide();\n    $('#id_form').submit(onSubmitClicked);\n    enterbutton();\n}\n\nfunction langLookup(isocode) {\n    return (LANGUAGES[isocode] ? LANGUAGES[isocode] : isocode);\n}\n\nfunction processOK(response) {\n    console.log(response);\n    if (response.identifyresponse){\n        $('#id_textlang').text(langLookup(response.identifyresponse)); \n    } else {\n        $('#id_textlang').text('No response received from service');\n    }\n}\n\nfunction processNotOK() {\n    console.log('Error Processing');\n    $('#id_textlang').text('Oops something went wrong');\n}            \n\nfunction invokeAjax(message) {\n    console.log('AJAX about to be invoked.');\n    console.log(message);\n    var ajaxData = {};\n    ajaxData.msgdata = message;\n    $.ajax({\n        type: 'POST',\n        url: 'langidentify',\n        data: ajaxData,\n        success: processOK,\n        error: processNotOK\n});\n\n}\n\nfunction onSubmitClicked(event){\n    $('#id_hello').show();\n    event.preventDefault();\n    var txt = $('#id_text').val();\n    invokeAjax(txt);\n}\n\nfunction enterbutton(){\n    $(function() {\n    $(\"form input\").keypress(function (e) {\n    if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {\n        $('#id_enter').click();\n        return false;\n    } else {\n        return true;\n    }\n});\n});\n}\n</script>        \n</body>\n</html>",
+      "x": 371.5,
+      "y": 315,
+      "wires": [
+        [
+          "7c50791f.84d7a8"
+        ]
+      ]
+    },
+    {
+      "id": "149bc168.90803f",
+      "type": "http in",
+      "z": "7837441f.4bb16c",
+      "name": "HTTP REST Identify Language",
+      "url": "/langidentify",
+      "method": "post",
+      "swaggerDoc": "",
+      "x": 155.5,
+      "y": 385,
+      "wires": [
+        [
+          "5fd099ea.622198"
+        ]
+      ]
+    },
+    {
+      "id": "6fb24091.dfea1",
+      "type": "http response",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "x": 827.5000095367432,
+      "y": 397.7500057220459,
+      "wires": []
+    },
+    {
+      "id": "905e6df.6e5ee9",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Process Output",
+      "func": "msg.payload = {};\nmsg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language){\n    msg.payload.identifyresponse = msg.lang.language;\n}\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 651.5,
+      "y": 484,
+      "wires": [
+        [
+          "6fb24091.dfea1"
+        ]
+      ]
+    },
+    {
+      "id": "5fd099ea.622198",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Extract Input",
+      "func": "msg.payload = msg.req.body.msgdata;\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 238.5,
+      "y": 493,
+      "wires": [
+        [
+          "e906540.5b624b"
+        ]
+      ]
+    },
+    {
+      "id": "e906540.5b624b",
+      "type": "watson-language-translator-identify",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "x": 411.5,
+      "y": 434,
+      "wires": [
+        [
+          "905e6df.6e5ee9",
+          "b3e54743.0f5108"
+        ]
+      ]
+    },
+    {
+      "id": "b3e54743.0f5108",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "lang",
+      "x": 556.7857131958008,
+      "y": 555.8571500778198,
+      "wires": []
+    },
+    {
+      "id": "faef5ee3.f94fd",
+      "type": "microphone",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "x": 191.5,
+      "y": 166,
+      "wires": [
+        [
+          "1214d4e.71e0d2b"
+        ]
+      ]
+    },
+    {
+      "id": "c4857e06.017c",
+      "type": "delay",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "pauseType": "delay",
+      "timeout": "2",
+      "timeoutUnits": "seconds",
+      "rate": "1",
+      "nbRateUnits": "1",
+      "rateUnits": "second",
+      "randomFirst": "1",
+      "randomLast": "5",
+      "randomUnits": "seconds",
+      "drop": false,
+      "x": 245.5,
+      "y": 414,
+      "wires": [
+        []
+      ]
+    },
+    {
+      "id": "a9c9d23b.d6a86",
+      "type": "play audio",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "x": 814.5,
+      "y": 288,
+      "wires": []
+    },
+    {
+      "id": "1214d4e.71e0d2b",
+      "type": "watson-speech-to-text",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "continuous": true,
+      "speakerlabels": true,
+      "lang": "en-US",
+      "langhidden": "en-US",
+      "langcustom": "NoCustomisationSetting",
+      "langcustomhidden": "",
+      "band": "BroadbandModel",
+      "bandhidden": "BroadbandModel",
+      "password": "",
+      "x": 313.5,
+      "y": 60,
+      "wires": [
+        [
+          "c0a26c97.827de"
+        ]
+      ]
+    },
+    {
+      "id": "71316eaa.22059",
+      "type": "watson-text-to-speech",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "lang": "es-ES",
+      "langhidden": "es-ES",
+      "langcustom": "NoCustomisationSetting",
+      "langcustomhidden": "",
+      "voice": "es-ES_LauraVoice",
+      "voicehidden": "",
+      "format": "audio/wav",
+      "password": "",
+      "x": 477.5,
+      "y": 242,
+      "wires": [
+        [
+          "dfae390c.9c5108"
+        ]
+      ]
+    },
+    {
+      "id": "9353577d.bbdb78",
+      "type": "watson-translator",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "conversational",
+      "srclang": "en",
+      "destlang": "es",
+      "password": "",
+      "custom": "",
+      "domainhidden": "conversational",
+      "srclanghidden": "en",
+      "destlanghidden": "es",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 257.5,
+      "y": 281,
+      "wires": [
+        [
+          "71316eaa.22059"
+        ]
+      ]
+    },
+    {
+      "id": "c0a26c97.827de",
+      "type": "function",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "func": "msg.payload = msg.transcription;\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 494.5,
+      "y": 72,
+      "wires": [
+        [
+          "9353577d.bbdb78"
+        ]
+      ]
+    },
+    {
+      "id": "dfae390c.9c5108",
+      "type": "function",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "func": "msg.payload = msg.speech\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 632.5,
+      "y": 147,
+      "wires": [
+        [
+          "a9c9d23b.d6a86"
+        ]
+      ]
+    },
+    {
+      "id": "3b6159d5.65b386",
+      "type": "inject",
+      "z": "888ff3de.7f795",
+      "name": "Goodbye Inject",
+      "topic": "",
+      "payload": "It's time for me to go now, goodbye",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 183.25000381469727,
+      "y": 435.7500057220459,
+      "wires": [
+        [
+          "a9ae0b42.4db6d8"
+        ]
+      ]
+    },
+    {
+      "id": "d896fee1.35ac7",
+      "type": "link in",
+      "z": "888ff3de.7f795",
+      "name": "Translate Input",
+      "links": [
+        "30319024.c3eda",
+        "a9ae0b42.4db6d8",
+        "ea0f87de.845938"
+      ],
+      "x": 123.5,
+      "y": 230,
+      "wires": [
+        [
+          "cc832b1f.1730f8"
+        ]
+      ]
+    },
+    {
+      "id": "ea0f87de.845938",
+      "type": "link out",
+      "z": "888ff3de.7f795",
+      "name": "Hello Inject",
+      "links": [
+        "d896fee1.35ac7"
+      ],
+      "x": 301.5,
+      "y": 83,
+      "wires": []
+    },
+    {
+      "id": "a9ae0b42.4db6d8",
+      "type": "link out",
+      "z": "888ff3de.7f795",
+      "name": "GoodBye Inject",
+      "links": [
+        "d896fee1.35ac7"
+      ],
+      "x": 324.5,
+      "y": 446,
+      "wires": []
+    },
+    {
+      "id": "dc8e1718.6e7f38",
+      "type": "function",
+      "z": "888ff3de.7f795",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 483.5,
+      "y": 232,
+      "wires": [
+        [
+          "920e4d13.6946e"
+        ]
+      ]
+    },
+    {
+      "id": "afb04fc1.61b17",
+      "type": "twitter out",
+      "z": "2408266b.78067a",
+      "twitter": "8314b320.0c26b",
+      "name": "Tweet",
+      "x": 1042.773120880127,
+      "y": 1206.4930639266968,
+      "wires": []
+    },
+    {
+      "id": "d37b4435.a3b488",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "demos",
+      "topic": "",
+      "payload": "Do you have any demos?",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 158.85646057128906,
+      "y": 1481.5764660835266,
+      "wires": [
+        [
+          "30319024.c3eda"
+        ]
+      ]
+    },
+    {
+      "id": "f1e10390.78fb5",
+      "type": "watson-conversation-v1",
+      "z": "2408266b.78067a",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 631.7731132507324,
+      "y": 1248.5764350891113,
+      "wires": [
+        [
+          "7c330967.0ea878",
+          "5220d6c6.744e28"
+        ]
+      ]
+    },
+    {
+      "id": "fa3c744b.4e8768",
+      "type": "watson-speech-to-text",
+      "z": "2408266b.78067a",
+      "name": "",
+      "continuous": true,
+      "speakerlabels": false,
+      "lang": "en-US",
+      "langhidden": "en-US",
+      "langcustomhidden": "",
+      "band": "BroadbandModel",
+      "bandhidden": "",
+      "password": "",
+      "x": 138.0231170654297,
+      "y": 1318.826416015625,
+      "wires": [
+        [
+          "b6cd4b16.d4bb48"
+        ]
+      ]
+    },
+    {
+      "id": "28026fc8.269b3",
+      "type": "watson-text-to-speech",
+      "z": "2408266b.78067a",
+      "name": "",
+      "lang": "en-GB",
+      "langhidden": "en-GB",
+      "langcustomhidden": "",
+      "voice": "en-GB_KateVoice",
+      "voicehidden": "",
+      "format": "audio/wav",
+      "password": "",
+      "x": 1137.8445091247559,
+      "y": 1271.1240882873535,
+      "wires": [
+        [
+          "fe43fcea.cc9e7"
+        ]
+      ]
+    },
+    {
+      "id": "b6cd4b16.d4bb48",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "set payload",
+      "func": "msg.payload = msg.transcription;\n\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 286.02312088012695,
+      "y": 1250.826413154602,
+      "wires": [
+        [
+          "1b7aa0f6.da123f"
+        ]
+      ]
+    },
+    {
+      "id": "fe43fcea.cc9e7",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "set payload",
+      "func": "msg.payload = msg.speech;\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1332.4398384094238,
+      "y": 1195.4098091125488,
+      "wires": [
+        [
+          "4fdc5df3.43e424"
+        ]
+      ]
+    },
+    {
+      "id": "4fdc5df3.43e424",
+      "type": "play audio",
+      "z": "2408266b.78067a",
+      "name": "",
+      "x": 1401.7731685638428,
+      "y": 1277.9097843170166,
+      "wires": []
+    },
+    {
+      "id": "c7daffcd.7862b",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "Set user details",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 113.02311706542969,
+      "y": 1062.5764408111572,
+      "wires": [
+        [
+          "5de1e1ce.6566d"
+        ]
+      ]
+    },
+    {
+      "id": "77579c05.78f684",
+      "type": "watson-conversation-v1",
+      "z": "2408266b.78067a",
+      "name": "",
+      "workspaceid": "4169c453-9374-4925-ab31-cd12b1dcf003",
+      "multiuser": true,
+      "context": true,
+      "x": 508.1064338684082,
+      "y": 2492.2430934906006,
+      "wires": [
+        [
+          "417ad0bf.1c8a5"
+        ]
+      ]
+    },
+    {
+      "id": "ed0e3c80.aa726",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "hello",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 99.1064338684082,
+      "y": 2410.2430934906006,
+      "wires": [
+        [
+          "2ffb5cfa.686e34"
+        ]
+      ]
+    },
+    {
+      "id": "9c24d22e.06504",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "watson",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 99.6064338684082,
+      "y": 2447.2430934906006,
+      "wires": [
+        [
+          "2ffb5cfa.686e34"
+        ]
+      ]
+    },
+    {
+      "id": "2ffb5cfa.686e34",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "set user 1",
+      "func": "msg.user = '1';\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 270.6064338684082,
+      "y": 2446.2430934906006,
+      "wires": [
+        [
+          "77579c05.78f684"
+        ]
+      ]
+    },
+    {
+      "id": "43eda8d7.36b598",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "hello",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 98.1064338684082,
+      "y": 2531.2430934906006,
+      "wires": [
+        [
+          "7b6d6fd7.8c8c6"
+        ]
+      ]
+    },
+    {
+      "id": "d8aacd75.1e8e7",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "cics",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 98.6064338684082,
+      "y": 2567.2430934906006,
+      "wires": [
+        [
+          "7b6d6fd7.8c8c6"
+        ]
+      ]
+    },
+    {
+      "id": "7b6d6fd7.8c8c6",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "set user 2",
+      "func": "msg.user = '2';\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 269.6064338684082,
+      "y": 2566.2430934906006,
+      "wires": [
+        [
+          "77579c05.78f684"
+        ]
+      ]
+    },
+    {
+      "id": "417ad0bf.1c8a5",
+      "type": "debug",
+      "z": "2408266b.78067a",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "payload.output.text",
+      "x": 727.1064338684082,
+      "y": 2492.2430934906006,
+      "wires": []
+    },
+    {
+      "id": "fbe94e6e.57b57",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "hello",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 275.1064338684082,
+      "y": 2313.2430934906006,
+      "wires": [
+        [
+          "77579c05.78f684"
+        ]
+      ]
+    },
+    {
+      "id": "ad80ae0a.59f32",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "watson",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 275.1064338684082,
+      "y": 2349.2430934906006,
+      "wires": [
+        [
+          "77579c05.78f684"
+        ]
+      ]
+    },
+    {
+      "id": "217caed5.fb4cd2",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "hello",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 146.6064338684082,
+      "y": 2661.2430934906006,
+      "wires": [
+        [
+          "c308465f.5f4998"
+        ]
+      ]
+    },
+    {
+      "id": "c308465f.5f4998",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "reset context",
+      "func": "msg.params = {\n    context: {}\n};\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 291.6064338684082,
+      "y": 2661.2430934906006,
+      "wires": [
+        [
+          "77579c05.78f684"
+        ]
+      ]
+    },
+    {
+      "id": "fb8b0b4f.d81a88",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "yes",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 99.6064338684082,
+      "y": 2483.2430934906006,
+      "wires": [
+        [
+          "2ffb5cfa.686e34"
+        ]
+      ]
+    },
+    {
+      "id": "3bfb6803.99bd08",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "yes",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 98.1064338684082,
+      "y": 2603.2430934906006,
+      "wires": [
+        [
+          "7b6d6fd7.8c8c6"
+        ]
+      ]
+    },
+    {
+      "id": "56c691b6.61b97",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "yes",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 275.1064338684082,
+      "y": 2385.2430934906006,
+      "wires": [
+        [
+          "77579c05.78f684"
+        ]
+      ]
+    },
+    {
+      "id": "bd28393c.74ddc8",
+      "type": "microphone",
+      "z": "2408266b.78067a",
+      "name": "",
+      "x": 111.27312088012695,
+      "y": 1202.576410293579,
+      "wires": [
+        [
+          "fa3c744b.4e8768"
+        ]
+      ]
+    },
+    {
+      "id": "b1bc9672.e37468",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "",
+      "topic": "",
+      "payload": "reset context",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 104.02311706542969,
+      "y": 1027.2430973052979,
+      "wires": [
+        [
+          "555834c4.1e38ec"
+        ]
+      ]
+    },
+    {
+      "id": "555834c4.1e38ec",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "reset context",
+      "func": "msg.params = {\n    context: {}\n};\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 276.0231170654297,
+      "y": 1027.2431049346924,
+      "wires": [
+        [
+          "83a9388a.d9d838"
+        ]
+      ]
+    },
+    {
+      "id": "5de1e1ce.6566d",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "add context",
+      "func": "msg.additional_context = {\n    twitter: {\n    handle: \"a_twitter_handle_without_the_at_symbol\",\n    dm: false\n}}\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 275.8564147949219,
+      "y": 1062.243127822876,
+      "wires": [
+        [
+          "83a9388a.d9d838"
+        ]
+      ]
+    },
+    {
+      "id": "7c330967.0ea878",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "set payload and tweet",
+      "func": "/*output=msg.payload;\nmsg.payload = {};\nmsg.payload.output = {text: [output]}\nmsg.payload.context={twitter: {handle:\"@HiHuman3\",DM:true}}\nnode.warn(msg.payload.context);\n*/\nnode.warn(\"Conversation output is:\\n\" + JSON.stringify(msg.payload))\n\nif (msg.payload.output && msg.payload.output.text) {\n    output = msg.payload.output.text.join(' ');\n    if (output && output.indexOf(\"|tweet:\") > -1) {\n        node.warn(\"tweeting\");\n        if (\n            msg.payload.context.twitter &&\n            msg.payload.context.twitter.handle \n            ) {\n            \n            // extract text and url to tweet and clean up strings\n            var tweet = output.split('|')\n                .filter(function (c){\n                    return c.indexOf(\"tweet:\") > -1 ;\n                }).join(', ').replace(\"tweet:\", '');\n            var url = output.split('|')\n                .filter(function (c){\n                    return c.indexOf(\"link:\") > -1 ;\n                }).join(', ').replace(\"link:\", '');\n            \n            // dm switch\n            var dmswitch = '';\n            if (msg.payload.context.twitter.dm && msg.payload.context.twitter.dm === true){\n                dmswitch = \"DM \";\n            }\n            // construct tweet\n            tweet = dmswitch + \"@\" + msg.payload.context.twitter.handle + \" \" + tweet + \" \" + url;\n            \n            msg.payload = tweet;\n            node.warn(\"Sending string to twitter node: \\n\" + tweet)\n            node.send([msg,null]);\n            \n        } else {node.error(\"no twitter details\");}\n    } else {\n        node.warn(\"no tweet requested\");\n    }\n    output = output.split('|')\n    .filter(function(c) {\n        return c.indexOf(\"tweet:\") === -1 && c.indexOf(\"link:\") === -1;\n    }).join(' ');\n} else {\n    output = 'No response';\n}\n\nnode.warn(\"Cleaned conversation output: \\n\" + output)\nmsg.payload = output;\nnode.send([null,msg]);",
+      "outputs": "2",
+      "noerr": 0,
+      "x": 835.939769744873,
+      "y": 1247.243076324463,
+      "wires": [
+        [
+          "afb04fc1.61b17"
+        ],
+        [
+          "aeb46c84.08bd"
+        ]
+      ]
+    },
+    {
+      "id": "1b7aa0f6.da123f",
+      "type": "link out",
+      "z": "2408266b.78067a",
+      "name": "gototone",
+      "links": [
+        "39b057c3.e96148"
+      ],
+      "x": 359.576171875,
+      "y": 1347.076416015625,
+      "wires": []
+    },
+    {
+      "id": "2e28e716.7f98c8",
+      "type": "link in",
+      "z": "2408266b.78067a",
+      "name": "convIn",
+      "links": [
+        "30319024.c3eda",
+        "83a9388a.d9d838",
+        "d8c6c142.d22a",
+        "eb1e4379.1e143"
+      ],
+      "x": 504.439857006073,
+      "y": 1299.6598091125488,
+      "wires": [
+        [
+          "f1e10390.78fb5",
+          "a895143b.c96558"
+        ]
+      ]
+    },
+    {
+      "id": "32559b4d.3a5b14",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "Hi",
+      "topic": "",
+      "payload": "switch",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 158.0231170654297,
+      "y": 1443.99312210083,
+      "wires": [
+        [
+          "30319024.c3eda"
+        ]
+      ]
+    },
+    {
+      "id": "a958a0cb.49479",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "Angry feedback",
+      "topic": "",
+      "payload": "it's really horrendous how badly these nodes are documented - There is absolutely no way any body can follow that! Infuriating!",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 130.2731170654297,
+      "y": 1517.4931230545044,
+      "wires": [
+        [
+          "30319024.c3eda"
+        ]
+      ]
+    },
+    {
+      "id": "40fccb9e.2d9214",
+      "type": "inject",
+      "z": "2408266b.78067a",
+      "name": "Happy feedback",
+      "topic": "",
+      "payload": "These new nodes are awesome! I love the way they are used in the new flows!",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 129.7731170654297,
+      "y": 1553.2431240081787,
+      "wires": [
+        [
+          "30319024.c3eda"
+        ]
+      ]
+    },
+    {
+      "id": "39b057c3.e96148",
+      "type": "link in",
+      "z": "2408266b.78067a",
+      "name": "",
+      "links": [
+        "1b7aa0f6.da123f",
+        "30319024.c3eda"
+      ],
+      "x": 528.7500066757202,
+      "y": 1629.502402305603,
+      "wires": [
+        [
+          "5c9ecab4.95f464",
+          "424d8fa1.b9707"
+        ]
+      ]
+    },
+    {
+      "id": "5c9ecab4.95f464",
+      "type": "debug",
+      "z": "2408266b.78067a",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "false",
+      "x": 656.2500076293945,
+      "y": 1586.1690883636475,
+      "wires": []
+    },
+    {
+      "id": "eb1e4379.1e143",
+      "type": "link out",
+      "z": "2408266b.78067a",
+      "name": "",
+      "links": [
+        "2e28e716.7f98c8"
+      ],
+      "x": 1032.0000190734863,
+      "y": 1626.3357753753662,
+      "wires": []
+    },
+    {
+      "id": "424d8fa1.b9707",
+      "type": "watson-tone-analyzer-v3",
+      "z": "2408266b.78067a",
+      "name": "",
+      "tones": "emotion",
+      "sentences": "false",
+      "contentType": "false",
+      "x": 663.5000076293945,
+      "y": 1626.0857458114624,
+      "wires": [
+        [
+          "61c5b822.47cc78"
+        ]
+      ]
+    },
+    {
+      "id": "61c5b822.47cc78",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "add emotion to context",
+      "func": "var emotions = [];\nvar threshold = 0.5;\nvar topemotion ='';\n\n// simplify object returned by tone analyser to only the emotion tones\nemotions = msg.response.document_tone.tone_categories\n                .filter(function(c){\n                    if (c.category_id == \"emotion_tone\")\n                    {return c; }\n                    })[0].tones;\n                    \n\nnode.warn(\"Detected tones: \\n\" + JSON.stringify(emotions));\n\n// find highest score and return that tone name, if that score is greater than the threshold\ntopemotion = emotions.reduce(function(a, b){ return a.score > b.score ? a : b; });\n\nif (topemotion.score > threshold) {\n    topemotion = topemotion.tone_name;\n} else {\n    topemotion = \"neutral\";\n}\n\n\n// add top emotion to conversation context\nmsg.additional_context = { emotion: topemotion };\n\nnode.warn(\"Emotion added to conversation context:\\n   \" +  topemotion);    \n\n\nreturn msg;\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 878.083324432373,
+      "y": 1627.002402305603,
+      "wires": [
+        [
+          "eb1e4379.1e143"
+        ]
+      ]
+    },
+    {
+      "id": "30319024.c3eda",
+      "type": "link out",
+      "z": "2408266b.78067a",
+      "name": "frommaninputs",
+      "links": [
+        "2e28e716.7f98c8",
+        "39b057c3.e96148",
+        "d896fee1.35ac7"
+      ],
+      "x": 324.7400140762329,
+      "y": 1494.8843040466309,
+      "wires": []
+    },
+    {
+      "id": "83a9388a.d9d838",
+      "type": "link out",
+      "z": "2408266b.78067a",
+      "name": "adminout",
+      "links": [
+        "2e28e716.7f98c8"
+      ],
+      "x": 395.4670042991638,
+      "y": 1044.8385372161865,
+      "wires": []
+    },
+    {
+      "id": "8e0f077c.6bd938",
+      "type": "comment",
+      "z": "2408266b.78067a",
+      "name": "config",
+      "info": "",
+      "x": 57.175750732421875,
+      "y": 987,
+      "wires": []
+    },
+    {
+      "id": "5c549d8.64c6f64",
+      "type": "comment",
+      "z": "2408266b.78067a",
+      "name": "speech in",
+      "info": "",
+      "x": 67.50000381469727,
+      "y": 1167.1111936569214,
+      "wires": []
+    },
+    {
+      "id": "6af8441d.d107cc",
+      "type": "comment",
+      "z": "2408266b.78067a",
+      "name": "test txt in",
+      "info": "",
+      "x": 65,
+      "y": 1404.6112575531006,
+      "wires": []
+    },
+    {
+      "id": "654ab5fb.79754c",
+      "type": "comment",
+      "z": "2408266b.78067a",
+      "name": "tone analyser",
+      "info": "",
+      "x": 568.7500152587891,
+      "y": 1402.1112337112427,
+      "wires": []
+    },
+    {
+      "id": "37e1027d.50120e",
+      "type": "comment",
+      "z": "2408266b.78067a",
+      "name": "conversations call and output",
+      "info": "",
+      "x": 613.7500419616699,
+      "y": 1173.361192703247,
+      "wires": []
+    },
+    {
+      "id": "5220d6c6.744e28",
+      "type": "debug",
+      "z": "2408266b.78067a",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "payload",
+      "x": 815.5,
+      "y": 1314,
+      "wires": []
+    },
+    {
+      "id": "a895143b.c96558",
+      "type": "debug",
+      "z": "2408266b.78067a",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "payload",
+      "x": 609.5,
+      "y": 1350,
+      "wires": []
+    },
+    {
+      "id": "5dcf83be.85f82c",
+      "type": "http in",
+      "z": "f5497c53.1e3c5",
+      "name": "Messenger Verification Webhook",
+      "url": "/chatbot",
+      "method": "get",
+      "swaggerDoc": "",
+      "x": 147.5,
+      "y": 274,
+      "wires": [
+        [
+          "d10f0685.4fa068",
+          "45fc7d23.416094"
+        ]
+      ]
+    },
+    {
+      "id": "45fc7d23.416094",
+      "type": "function",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "func": "var mode='';\nvar vtoken='';\nvar challenge='';\nif(msg.payload['hub.mode']){\n    mode = msg.payload['hub.mode'];\n}\nif(msg.payload['hub.verify_token']){\n    vtoken = msg.payload['hub.verify_token'];\n}\n\nif(msg.payload['hub.challenge']){\n    challenge = msg.payload['hub.challenge'];\n}\n\nif('subscribe'== mode && 'somelongstringnobodyisevergoingtoguess' == vtoken){\n    msg.payload = challenge;\n}\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 377.5,
+      "y": 255,
+      "wires": [
+        [
+          "5a1a4cf2.13fdd4"
+        ]
+      ]
+    },
+    {
+      "id": "5a1a4cf2.13fdd4",
+      "type": "http response",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "x": 616.5,
+      "y": 252,
+      "wires": []
+    },
+    {
+      "id": "d10f0685.4fa068",
+      "type": "debug",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "payload",
+      "x": 297.5,
+      "y": 108,
+      "wires": []
+    },
+    {
+      "id": "7dd88345.92c8ec",
+      "type": "http in",
+      "z": "f5497c53.1e3c5",
+      "name": "Messenger Chat Listener",
+      "url": "/chatbot",
+      "method": "post",
+      "swaggerDoc": "",
+      "x": 140.5,
+      "y": 471,
+      "wires": [
+        [
+          "cd01196d.998ef8",
+          "8379f058.d2c43"
+        ]
+      ]
+    },
+    {
+      "id": "8379f058.d2c43",
+      "type": "function",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "func": "if (msg.payload.object && 'page' == msg.payload.object) {\n    if (msg.payload.entry){     \n        var entry = msg.payload.entry;\n        for (var i = 0; i < entry.length; i++) {\n            var pageID = entry[i].id;\n            var timeOfEvent = entry[i].time; \n            var messaging = entry[i].messaging\n            for (var j =0; j < messaging.length; j++) {\n                if (messaging[j].message) {\n                    msg.messagingEvent = messaging[j];\n                    node.send([msg,null]); \n                }               \n            }\n        }\n    }\n}\nreturn [null,msg];",
+      "outputs": "2",
+      "noerr": 0,
+      "x": 398.5,
+      "y": 473,
+      "wires": [
+        [
+          "94e712db.e178c"
+        ],
+        [
+          "a9fdb2da.c2703",
+          "89719e8f.b7a8e"
+        ]
+      ]
+    },
+    {
+      "id": "94e712db.e178c",
+      "type": "http response",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "x": 620.5,
+      "y": 396,
+      "wires": []
+    },
+    {
+      "id": "cd01196d.998ef8",
+      "type": "debug",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "false",
+      "x": 332.5,
+      "y": 378,
+      "wires": []
+    },
+    {
+      "id": "a9fdb2da.c2703",
+      "type": "debug",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "messagingEvent",
+      "x": 596.5,
+      "y": 566,
+      "wires": []
+    },
+    {
+      "id": "b025e872.649028",
+      "type": "facebook-messenger-writer",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "x": 721.5,
+      "y": 327,
+      "wires": [
+        [
+          "515a40cb.7395c"
+        ]
+      ]
+    },
+    {
+      "id": "a1605677.abd118",
+      "type": "function",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "func": "msg.facebookevent = msg.messagingEvent;\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 517.5,
+      "y": 343,
+      "wires": [
+        [
+          "b025e872.649028"
+        ]
+      ]
+    },
+    {
+      "id": "515a40cb.7395c",
+      "type": "debug",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "payload",
+      "x": 806.5,
+      "y": 213,
+      "wires": []
+    },
+    {
+      "id": "89719e8f.b7a8e",
+      "type": "function",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "func": "msg.fromMessenger = true;\nmsg.payload = msg.messagingEvent.message.text;\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 467.5,
+      "y": 651,
+      "wires": [
+        [
+          "d8c6c142.d22a"
+        ]
+      ]
+    },
+    {
+      "id": "d8c6c142.d22a",
+      "type": "link out",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "links": [
+        "2e28e716.7f98c8",
+        "a06ff7c1.109c58"
+      ],
+      "x": 691.5,
+      "y": 668,
+      "wires": []
+    },
+    {
+      "id": "aeb46c84.08bd",
+      "type": "function",
+      "z": "2408266b.78067a",
+      "name": "",
+      "func": "if(msg.fromMessenger){\n    return [msg,msg];\n} else {\n    return [msg, null];\n}",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 994.5,
+      "y": 1381,
+      "wires": [
+        [
+          "28026fc8.269b3",
+          "c8f96c1e.9cde5"
+        ]
+      ]
+    },
+    {
+      "id": "c8f96c1e.9cde5",
+      "type": "link out",
+      "z": "2408266b.78067a",
+      "name": "conversation out for Messenger 7bdRightOne",
+      "links": [],
+      "x": 1150.5,
+      "y": 1404,
+      "wires": []
+    },
+    {
+      "id": "7bd35a1f.8501d4",
+      "type": "link in",
+      "z": "f5497c53.1e3c5",
+      "name": "",
+      "links": [
+        "e3aab513.976658"
+      ],
+      "x": 355.5,
+      "y": 327,
+      "wires": [
+        [
+          "a1605677.abd118"
+        ]
+      ]
+    },
+    {
+      "id": "647a47a5.5ad1f8",
+      "type": "http in",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "url": "/tele",
+      "method": "get",
+      "swaggerDoc": "",
+      "x": 193.5,
+      "y": 176,
+      "wires": [
+        [
+          "b72eb09e.f3253"
+        ]
+      ]
+    },
+    {
+      "id": "b72eb09e.f3253",
+      "type": "http request",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "method": "GET",
+      "ret": "txt",
+      "url": "https://raw.githubusercontent.com/ibm-early-programs/watson-tv/master/tv.html",
+      "tls": "",
+      "x": 439.5,
+      "y": 166,
+      "wires": [
+        [
+          "b26f5253.8454d"
+        ]
+      ]
+    },
+    {
+      "id": "8e491081.b6aed",
+      "type": "http response",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "x": 644.5,
+      "y": 351,
+      "wires": []
+    },
+    {
+      "id": "b26f5253.8454d",
+      "type": "function",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "func": "msg.headers = {'Content-Type':'text/html'}\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 528.5,
+      "y": 246,
+      "wires": [
+        [
+          "8e491081.b6aed"
+        ]
+      ]
+    },
+    {
+      "id": "ae5e4c74.17e1b",
+      "type": "http in",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "url": "/tv",
+      "method": "get",
+      "swaggerDoc": "",
+      "x": 191,
+      "y": 426,
+      "wires": [
+        [
+          "3fe38a6.3af0976"
+        ]
+      ]
+    },
+    {
+      "id": "1698bf3.906a341",
+      "type": "http response",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "x": 685,
+      "y": 426,
+      "wires": []
+    },
+    {
+      "id": "3fe38a6.3af0976",
+      "type": "http request",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "method": "GET",
+      "ret": "txt",
+      "url": "https://raw.githubusercontent.com/ibm-early-programs/watson-tv/master/tv.html",
+      "tls": "",
+      "x": 334.5,
+      "y": 426,
+      "wires": [
+        [
+          "c3f9228.da71fe"
+        ]
+      ]
+    },
+    {
+      "id": "677ba72f.c94608",
+      "type": "watson-speech-to-text",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "continuous": true,
+      "lang": "en-US",
+      "langhidden": "en-US",
+      "band": "BroadbandModel",
+      "bandhidden": "",
+      "password": "",
+      "x": 841,
+      "y": 709,
+      "wires": [
+        [
+          "23c5f77c.51d018"
+        ]
+      ]
+    },
+    {
+      "id": "23c5f77c.51d018",
+      "type": "change",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "rules": [
+        {
+          "t": "set",
+          "p": "payload",
+          "pt": "msg",
+          "to": "transcription",
+          "tot": "msg"
+        }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 1022,
+      "y": 709,
+      "wires": [
+        [
+          "4e05feba.22746"
+        ]
+      ]
+    },
+    {
+      "id": "8ab3d6e0.e99d28",
+      "type": "link in",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "links": [
+        "4e05feba.22746"
+      ],
+      "x": 408,
+      "y": 758,
+      "wires": [
+        [
+          "5683a828.3c48c8"
+        ]
+      ]
+    },
+    {
+      "id": "4e05feba.22746",
+      "type": "link out",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "links": [
+        "8ab3d6e0.e99d28"
+      ],
+      "x": 1145,
+      "y": 709,
+      "wires": []
+    },
+    {
+      "id": "a15e66d.85e0598",
+      "type": "debug",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "active": false,
+      "console": "false",
+      "complete": "false",
+      "x": 951,
+      "y": 758,
+      "wires": []
+    },
+    {
+      "id": "457caed4.44329",
+      "type": "function",
+      "z": "a317a9ef.096998",
+      "name": "append to global",
+      "func": "var translation = [];\n\nif (global.get(\"translation\")) {\n    translation = global.get(\"translation\");\n}\n\ntranslation.push({\n    text: msg.payload,\n    start: msg.timesplit[0],\n    end: msg.timesplit[1]\n});\n\nglobal.set(\"translation\", translation); \nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 766,
+      "y": 758,
+      "wires": [
+        [
+          "a15e66d.85e0598"
+        ]
+      ]
+    },
+    {
+      "id": "ac99b55.8457348",
+      "type": "http in",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "url": "/translation",
+      "method": "get",
+      "swaggerDoc": "",
+      "x": 220,
+      "y": 504,
+      "wires": [
+        [
+          "f93dcc31.8fad2"
+        ]
+      ]
+    },
+    {
+      "id": "12b4c7a1.434e88",
+      "type": "http response",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "x": 694,
+      "y": 551,
+      "wires": []
+    },
+    {
+      "id": "f93dcc31.8fad2",
+      "type": "change",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "rules": [
+        {
+          "t": "set",
+          "p": "payload",
+          "pt": "msg",
+          "to": "translation",
+          "tot": "global"
+        }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 406,
+      "y": 504,
+      "wires": [
+        [
+          "12b4c7a1.434e88",
+          "f6976e96.b4d2c"
+        ]
+      ]
+    },
+    {
+      "id": "ab88ae68.806ef",
+      "type": "http response",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "x": 561,
+      "y": 576,
+      "wires": []
+    },
+    {
+      "id": "76f3bfaf.96adf",
+      "type": "http in",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "url": "/translate",
+      "method": "post",
+      "swaggerDoc": "",
+      "x": 220,
+      "y": 584,
+      "wires": [
+        [
+          "6c0040bb.6a44c"
+        ]
+      ]
+    },
+    {
+      "id": "6c0040bb.6a44c",
+      "type": "change",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "rules": [
+        {
+          "t": "set",
+          "p": "payload",
+          "pt": "msg",
+          "to": "payload.url",
+          "tot": "msg"
+        }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 399,
+      "y": 584,
+      "wires": [
+        [
+          "ab88ae68.806ef",
+          "1e73197f.19e987",
+          "6baeb497.9d8b2c"
+        ]
+      ]
+    },
+    {
+      "id": "c3f9228.da71fe",
+      "type": "change",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "rules": [
+        {
+          "t": "delete",
+          "p": "headers",
+          "pt": "msg"
+        }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 518.5,
+      "y": 426,
+      "wires": [
+        [
+          "1698bf3.906a341"
+        ]
+      ]
+    },
+    {
+      "id": "6baeb497.9d8b2c",
+      "type": "ffmpeg-conversion",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "format": "wav",
+      "x": 335,
+      "y": 671,
+      "wires": [
+        [
+          "8e0a6451.c2d078"
+        ]
+      ]
+    },
+    {
+      "id": "8e0a6451.c2d078",
+      "type": "ffmpeg-silence-detect",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "noise": 0.008,
+      "duration": 0.8,
+      "x": 592,
+      "y": 667,
+      "wires": [
+        [
+          "478c83ce.34efbc"
+        ]
+      ]
+    },
+    {
+      "id": "72d705a1.dd4a9c",
+      "type": "ffmpeg-segment",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "timeout": true,
+      "x": 661.5,
+      "y": 709,
+      "wires": [
+        [
+          "677ba72f.c94608"
+        ]
+      ]
+    },
+    {
+      "id": "478c83ce.34efbc",
+      "type": "function",
+      "z": "a317a9ef.096998",
+      "name": "average",
+      "func": "msg.times = [];\n\nfor (var i = 0; i < msg.silences.length; ++i) {\n    var s = msg.silences[i];\n    msg.times.push((s[1] - s[0]) / 2 + s[0]);\n}\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 499.5,
+      "y": 709,
+      "wires": [
+        [
+          "72d705a1.dd4a9c"
+        ]
+      ]
+    },
+    {
+      "id": "28ce8ee5.19f962",
+      "type": "comment",
+      "z": "a317a9ef.096998",
+      "name": "Get UI from Github",
+      "info": "",
+      "x": 230.5,
+      "y": 388,
+      "wires": []
+    },
+    {
+      "id": "b41910e5.f172a",
+      "type": "comment",
+      "z": "a317a9ef.096998",
+      "name": "Get global context for latest translations",
+      "info": "",
+      "x": 289.5,
+      "y": 466,
+      "wires": []
+    },
+    {
+      "id": "e8526046.10f0f",
+      "type": "comment",
+      "z": "a317a9ef.096998",
+      "name": "UI posts URL to perform ffmpeg functions",
+      "info": "",
+      "x": 300,
+      "y": 546,
+      "wires": []
+    },
+    {
+      "id": "f6976e96.b4d2c",
+      "type": "debug",
+      "z": "a317a9ef.096998",
+      "name": "Translation Set",
+      "active": true,
+      "console": "false",
+      "complete": "payload",
+      "x": 769.5,
+      "y": 485,
+      "wires": []
+    },
+    {
+      "id": "1e73197f.19e987",
+      "type": "debug",
+      "z": "a317a9ef.096998",
+      "name": "Translation Requested",
+      "active": true,
+      "console": "false",
+      "complete": "payload",
+      "x": 618.5,
+      "y": 626,
+      "wires": []
+    },
+    {
+      "id": "5683a828.3c48c8",
+      "type": "watson-translator",
+      "z": "a317a9ef.096998",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "conversational",
+      "srclang": "pt",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "conversational",
+      "srclanghidden": "pt",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 556.5,
+      "y": 771,
+      "wires": [
+        [
+          "457caed4.44329"
+        ]
+      ]
+    },
+    {
+      "id": "9cd208f.01e25f8",
+      "type": "watson-language-translator-identify",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "x": 358.85716247558594,
+      "y": 746.2857666015625,
+      "wires": [
+        [
+          "6881b7de.93b658"
+        ]
+      ]
+    },
+    {
+      "id": "6881b7de.93b658",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Process Output",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language){\n    msg.payload.identifyresponse = msg.lang.language;\n}\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 577.1428985595703,
+      "y": 692.8572177886963,
+      "wires": [
+        [
+          "37e8e893.d78408",
+          "f0d5d2a5.5afd8",
+          "11c950eb.6ddebf",
+          "6df2867c.adf278",
+          "e0c2a0dd.6bcdc",
+          "83b259a5.7c86f8",
+          "36410bfc.5d6694",
+          "aab01cc7.9a2dc"
+        ]
+      ]
+    },
+    {
+      "id": "21d0e063.0fc55",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "es",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "es",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1005.2540092468262,
+      "y": 690.5397663116455,
+      "wires": [
+        [
+          "ec53bafe.29a118"
+        ]
+      ]
+    },
+    {
+      "id": "37e8e893.d78408",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Spanish",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"es\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 826.9999389648438,
+      "y": 690.8572387695312,
+      "wires": [
+        [
+          "21d0e063.0fc55"
+        ]
+      ]
+    },
+    {
+      "id": "949aa54c.2d49f8",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "es",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "es",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1635.2542533874512,
+      "y": 744.3494606018066,
+      "wires": [
+        [
+          "ac9cc8f3.647a98"
+        ]
+      ]
+    },
+    {
+      "id": "ec53bafe.29a118",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1234.1428031921387,
+      "y": 689.4286398887634,
+      "wires": [
+        [
+          "27a57fc5.63144"
+        ]
+      ]
+    },
+    {
+      "id": "ed8d769f.7be278",
+      "type": "inject",
+      "z": "7837441f.4bb16c",
+      "name": "Mientras",
+      "topic": "",
+      "payload": "Mientras",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 106.42857142857142,
+      "y": 681.4285714285713,
+      "wires": [
+        [
+          "9cd208f.01e25f8"
+        ]
+      ]
+    },
+    {
+      "id": "cb810dac.efa96",
+      "type": "inject",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "topic": "",
+      "payload": "hello",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "x": 146.28571319580078,
+      "y": 1144.28564453125,
+      "wires": [
+        [
+          "9cd208f.01e25f8"
+        ]
+      ]
+    },
+    {
+      "id": "ac9cc8f3.647a98",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1823.2142333984375,
+      "y": 725.21435546875,
+      "wires": [
+        [
+          "8f85a873.9f64c8",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "8f85a873.9f64c8",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 2033.4285888671875,
+      "y": 695.7857055664062,
+      "wires": []
+    },
+    {
+      "id": "27a57fc5.63144",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1451.7321243286133,
+      "y": 743.8929090499878,
+      "wires": [
+        [
+          "949aa54c.2d49f8"
+        ]
+      ]
+    },
+    {
+      "id": "7abc9c41.f0be34",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "it",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "it",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1016,
+      "y": 799.9999814033508,
+      "wires": [
+        [
+          "d36e8899.3fc448"
+        ]
+      ]
+    },
+    {
+      "id": "f0d5d2a5.5afd8",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Italian",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"it\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 827.7459297180176,
+      "y": 800.3174538612366,
+      "wires": [
+        [
+          "7abc9c41.f0be34"
+        ]
+      ]
+    },
+    {
+      "id": "6e7963c6.9b164c",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "it",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "it",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1646.000244140625,
+      "y": 853.809675693512,
+      "wires": [
+        [
+          "dd815d95.82669"
+        ]
+      ]
+    },
+    {
+      "id": "d36e8899.3fc448",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1244.8887939453125,
+      "y": 798.8888549804688,
+      "wires": [
+        [
+          "37beb6f3.b90d6a"
+        ]
+      ]
+    },
+    {
+      "id": "dd815d95.82669",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1835.9602508544922,
+      "y": 850.6745781898499,
+      "wires": [
+        [
+          "9068fe10.3e285",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "9068fe10.3e285",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 2022.174560546875,
+      "y": 797.2459716796875,
+      "wires": []
+    },
+    {
+      "id": "37beb6f3.b90d6a",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1462.478115081787,
+      "y": 853.3531241416931,
+      "wires": [
+        [
+          "6e7963c6.9b164c"
+        ]
+      ]
+    },
+    {
+      "id": "5fc0b47d.fc6afc",
+      "type": "inject",
+      "z": "7837441f.4bb16c",
+      "name": "Mella",
+      "topic": "",
+      "payload": "Mella",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": true,
+      "x": 84,
+      "y": 762,
+      "wires": [
+        [
+          "9cd208f.01e25f8"
+        ]
+      ]
+    },
+    {
+      "id": "b14765dc.2b25b8",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "fr",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "fr",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1003.9999809265137,
+      "y": 904.0000324249268,
+      "wires": [
+        [
+          "2b4dfd85.56a382"
+        ]
+      ]
+    },
+    {
+      "id": "11c950eb.6ddebf",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "France",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"fr\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 815.7459106445312,
+      "y": 904.3175048828125,
+      "wires": [
+        [
+          "b14765dc.2b25b8"
+        ]
+      ]
+    },
+    {
+      "id": "4206d14.6963d3",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "fr",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "fr",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1634.0002250671387,
+      "y": 957.8097267150879,
+      "wires": [
+        [
+          "11737add.a5e365"
+        ]
+      ]
+    },
+    {
+      "id": "2b4dfd85.56a382",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1232.8887748718262,
+      "y": 902.8889060020447,
+      "wires": [
+        [
+          "a576932b.be148"
+        ]
+      ]
+    },
+    {
+      "id": "11737add.a5e365",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1823.9602317810059,
+      "y": 954.6746292114258,
+      "wires": [
+        [
+          "4be4b0bf.9b4ba",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "4be4b0bf.9b4ba",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 2028.174560546875,
+      "y": 885.2459716796875,
+      "wires": []
+    },
+    {
+      "id": "a576932b.be148",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1450.4780960083008,
+      "y": 957.353175163269,
+      "wires": [
+        [
+          "4206d14.6963d3"
+        ]
+      ]
+    },
+    {
+      "id": "599937fe.114ec8",
+      "type": "inject",
+      "z": "7837441f.4bb16c",
+      "name": "Bonjour",
+      "topic": "",
+      "payload": "Bonjour",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": true,
+      "x": 96,
+      "y": 852,
+      "wires": [
+        [
+          "9cd208f.01e25f8"
+        ]
+      ]
+    },
+    {
+      "id": "f3a2de.762d3d2",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "de",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "de",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1054,
+      "y": 1004,
+      "wires": [
+        [
+          "f8f5f779.970d68"
+        ]
+      ]
+    },
+    {
+      "id": "6df2867c.adf278",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "German",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"de\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 809.7459106445312,
+      "y": 1004.3175048828125,
+      "wires": [
+        [
+          "f3a2de.762d3d2"
+        ]
+      ]
+    },
+    {
+      "id": "27f954cb.8d6c6c",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "de",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "de",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1684.000244140625,
+      "y": 1057.8096942901611,
+      "wires": [
+        [
+          "1b04b827.3de178"
+        ]
+      ]
+    },
+    {
+      "id": "f8f5f779.970d68",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1282.8887939453125,
+      "y": 1002.8888735771179,
+      "wires": [
+        [
+          "9de06fe1.91c31"
+        ]
+      ]
+    },
+    {
+      "id": "1b04b827.3de178",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1873.9602508544922,
+      "y": 1054.674596786499,
+      "wires": [
+        [
+          "c8af91a5.b510b",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "c8af91a5.b510b",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 2042.174560546875,
+      "y": 1001.2459716796875,
+      "wires": []
+    },
+    {
+      "id": "9de06fe1.91c31",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1500.478115081787,
+      "y": 1057.3531427383423,
+      "wires": [
+        [
+          "27f954cb.8d6c6c"
+        ]
+      ]
+    },
+    {
+      "id": "de60fde4.ef2fb",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "pt",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "pt",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1035.9999732971191,
+      "y": 1118.0000095367432,
+      "wires": [
+        [
+          "125b3483.8a594b"
+        ]
+      ]
+    },
+    {
+      "id": "e0c2a0dd.6bcdc",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Portuguese",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"pt\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 801.7459106445312,
+      "y": 1126.3175048828125,
+      "wires": [
+        [
+          "de60fde4.ef2fb"
+        ]
+      ]
+    },
+    {
+      "id": "ad94b12c.6bb57",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "pt",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "pt",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1666.0002174377441,
+      "y": 1171.8097038269043,
+      "wires": [
+        [
+          "3a6131ec.e7c35e"
+        ]
+      ]
+    },
+    {
+      "id": "125b3483.8a594b",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1264.8887672424316,
+      "y": 1116.888883113861,
+      "wires": [
+        [
+          "661a72e7.3d5ecc"
+        ]
+      ]
+    },
+    {
+      "id": "3a6131ec.e7c35e",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1855.9602241516113,
+      "y": 1168.6746063232422,
+      "wires": [
+        [
+          "2f4f3444.6544fc",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "2f4f3444.6544fc",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 2048.174560546875,
+      "y": 1191.2459716796875,
+      "wires": []
+    },
+    {
+      "id": "661a72e7.3d5ecc",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1482.4780883789062,
+      "y": 1171.3531522750854,
+      "wires": [
+        [
+          "ad94b12c.6bb57"
+        ]
+      ]
+    },
+    {
+      "id": "ef6aa979.8d4ea8",
+      "type": "inject",
+      "z": "7837441f.4bb16c",
+      "name": "Trabalho",
+      "topic": "",
+      "payload": "Trabalho",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": true,
+      "x": 98,
+      "y": 952,
+      "wires": [
+        [
+          "9cd208f.01e25f8"
+        ]
+      ]
+    },
+    {
+      "id": "14215b77.8ac0c5",
+      "type": "inject",
+      "z": "7837441f.4bb16c",
+      "name": "du hast",
+      "topic": "",
+      "payload": "du hast",
+      "payloadType": "str",
+      "repeat": "",
+      "crontab": "",
+      "once": true,
+      "x": 110,
+      "y": 1030,
+      "wires": [
+        [
+          "9cd208f.01e25f8"
+        ]
+      ]
+    },
+    {
+      "id": "83b259a5.7c86f8",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "English",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"en\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 791.7459106445312,
+      "y": 604.3174438476562,
+      "wires": [
+        [
+          "6b10603f.0af5a"
+        ]
+      ]
+    },
+    {
+      "id": "6b10603f.0af5a",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1014.8887939453125,
+      "y": 602.8888549804688,
+      "wires": [
+        [
+          "db7ab7e2.f71b88"
+        ]
+      ]
+    },
+    {
+      "id": "d582d55e.0c3748",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "payload",
+      "x": 2198.174560546875,
+      "y": 491.2459716796875,
+      "wires": []
+    },
+    {
+      "id": "db7ab7e2.f71b88",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 2094.4781494140625,
+      "y": 623.3531494140625,
+      "wires": [
+        [
+          "d582d55e.0c3748",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "a06ff7c1.109c58",
+      "type": "link in",
+      "z": "7837441f.4bb16c",
+      "name": "Polyglot",
+      "links": [
+        "d8c6c142.d22a"
+      ],
+      "x": 122.99999999999997,
+      "y": 587.9999999999999,
+      "wires": [
+        [
+          "9cd208f.01e25f8"
+        ]
+      ]
+    },
+    {
+      "id": "e3aab513.976658",
+      "type": "link out",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "links": [
+        "7bd35a1f.8501d4"
+      ],
+      "x": 2358.9999999999995,
+      "y": 889.9999999999998,
+      "wires": []
+    },
+    {
+      "id": "16d996e.21eb469",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "ko",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "ko",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1022,
+      "y": 1232,
+      "wires": [
+        [
+          "51ed2c88.a62284"
+        ]
+      ]
+    },
+    {
+      "id": "36410bfc.5d6694",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Korean",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"ko\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 777.7459373474121,
+      "y": 1240.3174953460693,
+      "wires": [
+        [
+          "16d996e.21eb469"
+        ]
+      ]
+    },
+    {
+      "id": "d0193bea.a539e8",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "ko",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "ko",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1652.000244140625,
+      "y": 1285.8096942901611,
+      "wires": [
+        [
+          "25be423f.0c953e"
+        ]
+      ]
+    },
+    {
+      "id": "51ed2c88.a62284",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1250.8887939453125,
+      "y": 1230.888873577118,
+      "wires": [
+        [
+          "5fcdafd7.c8fca"
+        ]
+      ]
+    },
+    {
+      "id": "25be423f.0c953e",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1841.9602508544922,
+      "y": 1282.674596786499,
+      "wires": [
+        [
+          "9ec3f576.00f398",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "9ec3f576.00f398",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 2034.1745872497559,
+      "y": 1305.2459621429443,
+      "wires": []
+    },
+    {
+      "id": "5fcdafd7.c8fca",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1468.478115081787,
+      "y": 1285.3531427383423,
+      "wires": [
+        [
+          "d0193bea.a539e8"
+        ]
+      ]
+    },
+    {
+      "id": "64a33949.59b468",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "arz",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "arz",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1014,
+      "y": 1344,
+      "wires": [
+        [
+          "77b484eb.02db5c"
+        ]
+      ]
+    },
+    {
+      "id": "aab01cc7.9a2dc",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "Arabic",
+      "func": "//msg.payload = {};\n//msg.payload.identifyresponse = \"I don’t know\";\nif (msg.lang && msg.lang.language == \"ar\"){\n    //msg.payload.identifyresponse = msg.lang.language;\n    //msg = msg.payload;\nreturn msg;\n}\n",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 759.7459373474121,
+      "y": 1352.3174953460693,
+      "wires": [
+        [
+          "64a33949.59b468"
+        ]
+      ]
+    },
+    {
+      "id": "ac7ffcd2.d9631",
+      "type": "watson-translator",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "arz",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "arz",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 1644.000244140625,
+      "y": 1397.8096942901611,
+      "wires": [
+        [
+          "47d2c6e7.62df58"
+        ]
+      ]
+    },
+    {
+      "id": "77b484eb.02db5c",
+      "type": "watson-conversation-v1",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 1242.8887939453125,
+      "y": 1342.888873577118,
+      "wires": [
+        [
+          "d7278ac6.bf0d38"
+        ]
+      ]
+    },
+    {
+      "id": "47d2c6e7.62df58",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1833.9602508544922,
+      "y": 1394.674596786499,
+      "wires": [
+        [
+          "7e481564.0d2d0c",
+          "e3aab513.976658"
+        ]
+      ]
+    },
+    {
+      "id": "7e481564.0d2d0c",
+      "type": "debug",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 2026.174560546875,
+      "y": 1433.2459716796875,
+      "wires": []
+    },
+    {
+      "id": "d7278ac6.bf0d38",
+      "type": "function",
+      "z": "7837441f.4bb16c",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1460.478115081787,
+      "y": 1397.3531427383423,
+      "wires": [
+        [
+          "ac7ffcd2.d9631"
+        ]
+      ]
+    },
+    {
+      "id": "64809d66.5d8d94",
+      "type": "microphone",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "x": 113,
+      "y": 604,
+      "wires": [
+        [
+          "fe5ff8c6.bbeb08"
+        ]
+      ]
+    },
+    {
+      "id": "f02ef2ce.de95c",
+      "type": "play audio",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "x": 1281,
+      "y": 746,
+      "wires": []
+    },
+    {
+      "id": "fe5ff8c6.bbeb08",
+      "type": "watson-speech-to-text",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "continuous": true,
+      "speakerlabels": true,
+      "lang": "es-ES",
+      "langhidden": "es-ES",
+      "langcustom": "NoCustomisationSetting",
+      "langcustomhidden": "",
+      "band": "BroadbandModel",
+      "bandhidden": "BroadbandModel",
+      "password": "",
+      "x": 320,
+      "y": 624,
+      "wires": [
+        [
+          "99561d63.6d901"
+        ]
+      ]
+    },
+    {
+      "id": "370e1dae.7a7542",
+      "type": "watson-text-to-speech",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "lang": "es-ES",
+      "langhidden": "es-ES",
+      "langcustom": "NoCustomisationSetting",
+      "langcustomhidden": "",
+      "voice": "es-ES_LauraVoice",
+      "voicehidden": "",
+      "format": "audio/wav",
+      "password": "",
+      "x": 1006,
+      "y": 670,
+      "wires": [
+        [
+          "da649d81.951fc"
+        ]
+      ]
+    },
+    {
+      "id": "7e4cf092.60bd7",
+      "type": "watson-translator",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "conversational",
+      "srclang": "es",
+      "destlang": "en",
+      "password": "",
+      "custom": "",
+      "domainhidden": "conversational",
+      "srclanghidden": "es",
+      "destlanghidden": "en",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 676,
+      "y": 637,
+      "wires": [
+        [
+          "b360a70b.389818"
+        ]
+      ]
+    },
+    {
+      "id": "99561d63.6d901",
+      "type": "function",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "func": "msg.payload = msg.transcription;\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 499,
+      "y": 610,
+      "wires": [
+        [
+          "7e4cf092.60bd7"
+        ]
+      ]
+    },
+    {
+      "id": "da649d81.951fc",
+      "type": "function",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "func": "msg.payload = msg.speech\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 1185,
+      "y": 511,
+      "wires": [
+        [
+          "f02ef2ce.de95c"
+        ]
+      ]
+    },
+    {
+      "id": "a7f405c3.c21c48",
+      "type": "debug",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "active": true,
+      "console": "false",
+      "complete": "translation",
+      "x": 1078.2857856750488,
+      "y": 860,
+      "wires": []
+    },
+    {
+      "id": "9c2c9ba6.d212e8",
+      "type": "function",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "func": "node.warn('translated text is: ' + msg.payload);\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 868.0714302062988,
+      "y": 889.4286499023438,
+      "wires": [
+        [
+          "a7f405c3.c21c48",
+          "370e1dae.7a7542"
+        ]
+      ]
+    },
+    {
+      "id": "f4196dfa.bb1b",
+      "type": "watson-translator",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "action": "translate",
+      "basemodel": "ar-en",
+      "domain": "news",
+      "srclang": "en",
+      "destlang": "es",
+      "password": "",
+      "custom": "",
+      "domainhidden": "news",
+      "srclanghidden": "en",
+      "destlanghidden": "es",
+      "basemodelhidden": "ar-en",
+      "customhidden": "",
+      "filetype": "forcedglossary",
+      "trainid": "",
+      "lgparams2": true,
+      "ldparamshidden2": "true",
+      "x": 680.1114501953125,
+      "y": 908.5637550354004,
+      "wires": [
+        [
+          "9c2c9ba6.d212e8"
+        ]
+      ]
+    },
+    {
+      "id": "dbb9967.a2e5d68",
+      "type": "function",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "x": 736.5893249511719,
+      "y": 792.107177734375,
+      "wires": [
+        [
+          "f4196dfa.bb1b"
+        ]
+      ]
+    },
+    {
+      "id": "b360a70b.389818",
+      "type": "watson-conversation-v1",
+      "z": "dbc3db37.774bc8",
+      "name": "",
+      "workspaceid": "89185658-6797-481e-945d-b757377f5ecf",
+      "multiuser": false,
+      "context": true,
+      "x": 719,
+      "y": 709.6429443359375,
+      "wires": [
+        [
+          "dbb9967.a2e5d68"
+        ]
+      ]
+    }
+  ]
+}
