@@ -1,0 +1,272 @@
+<link rel="stylesheet" href="css/seahorse_slimhead.css">
+  <link rel="stylesheet" href="css/signup.css">
+  <link rel="stylesheet" href="css/style.css">
+
+
+Please enter your details<p/><form id="customerDetails">	
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor"></a>
+<div class="gform_body"><ul id="gform_fields_2" class="gform_fields top_label form_sublabel_below description_below"><li id="field_2_35" class="gfield gfield_html gfield_html_formatted gfield_no_follows_desc field_sublabel_below field_description_below gfield_visibility_visible"><fieldset>
+<legend>Contact Details</legend>
+<ul><li id="field_2_1" class="gfield gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label gfield_label_before_complex" for="input_2_1_2">Name<span class="gfield_required">*</span></label><div class="ginput_complex ginput_container has_prefix has_first_name no_middle_name has_last_name no_suffix gf_name_has_3 ginput_container_name gfield_trigger_change" id="input_2_1">
+<span id="input_2_1_2_container" class="name_prefix name_prefix_select">
+<select name="input_1.2" id="input_2_1_2" aria-label="Name prefix" tabindex="1">
+<option value=""></option><option value="Mr.">Mr.</option><option value="Mrs.">Mrs.</option><option value="Miss">Miss</option><option value="Ms.">Ms.</option><option value="Dr.">Dr.</option><option value="Prof.">Prof.</option><option value="Rev.">Rev.</option>
+</select><span class="ico icon-chevron-down2"></span>
+<label for="input_2_1_2">Title</label>
+</span>
+<span id="input_2_1_3_container" class="name_first">
+<input type="text" name="input_1.3" id="input_2_1_3" value="" aria-label="First name" tabindex="2" aria-required="true" aria-invalid="false">
+<label for="input_2_1_3">First</label>
+</span>
+
+<span id="input_2_1_6_container" class="name_last">
+<input type="text" name="input_1.6" id="input_2_1_6" value="" aria-label="Last name" tabindex="4" aria-required="true" aria-invalid="false">
+<label for="input_2_1_6">Last</label>
+</span>
+
+</div></li><li id="field_2_15" class="gfield ginput_left standard gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_15">Phone Number<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_phone"><input name="input_15" id="input_2_15" type="tel" value="" class="large" tabindex="6" aria-required="true" aria-invalid="false"></div></li><li id="field_2_14" class="gfield ginput_right standard gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_14">Email Address<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_email">
+<input name="input_14" id="input_2_14" type="email" value="" class="large" tabindex="7">
+</div></li><li id="field_2_22" class="gfield field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label"></label><div class="ginput_container ginput_container_checkbox"><ul class="gfield_checkbox" id="input_2_22"><li class="gchoice_2_22_1">
+<input name="input_22.1" type="checkbox" value="Opt in to paperless billing" checked="checked" id="choice_2_22_1" tabindex="8">
+<label for="choice_2_22_1" id="label_2_22_1">Opt in to paperless billing</label>
+</li></ul></div><div class="gfield_description">Have your bill conveniently delivered to your inbox. Plus, going paperless helps the environment.</div></li><li id="field_2_54" class="gfield html5date gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_54">Date of Birth<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_text"><input name="input_54" id="input_2_54" type="date" value="" class="small" tabindex="9" aria-required="true" aria-invalid="false"></div></li><li id="field_2_36" class="gfield gfield_html gfield_html_formatted gfield_no_follows_desc field_sublabel_below field_description_below gfield_visibility_visible"></li></ul>
+<input type="button" id="gform_submit_button_2" class="gform_button button" value="Submit" tabindex="35" onclick="PostData('http://localhost:4000/customerDetails', 'customerDetails');" onkeypress="PostData('http://localhost:4000/customerDetails', 'customerDetails');">
+</div>
+</form>
+
+Please enter your cylinder address details<p/><form id="addressForm">
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor"></a>
+<div class="gform_body"><ul id="gform_fields_2" class="gform_fields top_label form_sublabel_below description_below"><li id="field_2_35" class="gfield gfield_html gfield_html_formatted gfield_no_follows_desc field_sublabel_below field_description_below gfield_visibility_visible"><fieldset>
+<legend>Cylinder Details</legend>
+<ul><li id="field_2_4" class="gfield gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label gfield_label_before_complex" for="input_2_4_1">Delivery Address<span class="gfield_required">*</span></label>    
+<div class="ginput_complex ginput_container has_street has_city has_zip ginput_container_address gfield_trigger_change" id="input_2_4">
+<span class="ginput_full address_line_1" id="input_2_4_1_container">
+<input type="text" name="input_4.1" id="input_2_4_1" value="" tabindex="10">
+<label for="input_2_4_1" id="input_2_4_1_label">Street Address</label>
+</span><span class="ginput_left address_city" id="input_2_4_3_container">
+<input type="text" name="input_4.3" id="input_2_4_3" value="" tabindex="11">
+<label for="input_2_4_3" id="input_2_4_3_label">City</label>
+</span><input type="hidden" class="gform_hidden" name="input_4.4" id="input_2_4_4" value=""><span class="ginput_right address_zip" id="input_2_4_5_container">
+<input type="text" name="input_4.5" id="input_2_4_5" value="" tabindex="12">
+<label for="input_2_4_5" id="input_2_4_5_label">Postcode</label>
+</span><input type="hidden" class="gform_hidden" name="input_4.6" id="input_2_4_6" value="Australia">
+<div class="gf_clear gf_clear_complex"></div>
+</div></li><li id="field_2_51" class="gfield gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_51">State<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_select"><select name="input_51" id="input_2_51" onchange="gf_apply_rules(2,[52,49,50]);" class="medium gfield_select" tabindex="13" aria-required="true" aria-invalid="false"><option value="">Select State</option><option value="Western Australia">Western Australia</option><option value="Northern Territory">Northern Territory</option><option value="Australian Capital Territory">Australian Capital Territory</option><option value="New South Wales">New South Wales</option><option value="Tasmania">Tasmania</option><option value="Victoria">Victoria</option><option value="Queensland">Queensland</option></select><span class="ico icon-chevron-down2"></span></div></li><li id="field_2_6" class="gfield field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label"></label><div class="ginput_container ginput_container_checkbox"><ul class="gfield_checkbox" id="input_2_6"><li class="gchoice_2_6_1">
+	<input type="button" id="gform_submit_button_2" class="gform_button button" value="Submit" tabindex="35" onclick="PostData('http://localhost:4000/addressForm', 'addressForm');" onkeypress="PostData('http://localhost:4000/addressForm', 'addressForm');">
+</div>
+</div>
+</div>
+</form>
+<script src="js/ajax.js"></script>
+
+<form id="noticeCompletion" method="post" enctype="multipart/form-data">
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor">
+<div class="gform_body">
+<fieldset>
+<legend>Upload Notice of Completion</legend>
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="button" class="button gform_button_select_files" value="Select Files" name="submit" onclick="PostData('http://localhost:4000/upload', 'noticeCompletion');">
+</fieldset>
+</div>
+</div>
+</form>
+
+
+Please create your account login<p/><form id="createPassword">	
+<fieldset>
+<legend>Account Login</legend>
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor"></a>
+<div class="gform_body">
+<span id="input_2_1_3_container" class="name_first">
+<input type="text" name="username" id="input_2_1_3" value="" aria-label="First name" tabindex="2" aria-required="true" aria-invalid="false">
+<label for="input_2_1_3">Username</label>
+</span>
+
+<span id="input_2_1_6_container" class="name_last">
+<input type="text" name="password" id="input_2_1_6" value="" aria-label="Last name" tabindex="4" aria-required="true" aria-invalid="false">
+<label for="input_2_1_6">Password</label>
+</span><br/>
+<input type="button" id="gform_submit_button_2" class="gform_button button" value="button" tabindex="35" onclick="PostData('http://localhost:4000/createPassword', 'createPassword');" onkeypress="PostData('http://localhost:4000/createPassword', 'createPassword');">
+</div>
+</div>
+</fieldset>
+</form>
+
+Enter your account number and postcode<p/><form id="loginForm">	
+<fieldset>
+<legend>Account Login</legend>
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor"></a>
+<div class="gform_body">
+<label for="AccountNumber">Account Number <span class="req">*</span> <span class="info modal icon-info2" data-modal="modal-account"></span></label>
+<input data-val="true" data-val-required="The AccountNumber field is required." id="AccountNumber" name="AccountNumber" type="tel" value="">
+<span class="hint">Required</span>
+
+<label for="Postcode">Postcode <span class="req">*</span> <span class="info modal icon-info2" data-modal="modal-postcode"></span></label>
+<input data-val="true" data-val-required="The Postcode field is required." id="Postcode" maxlength="4" name="Postcode" pattern="[0-9]{4}" type="tel" value="">
+<span class="hint">Required</span><br/>
+
+<input id="gform_submit_button_2" class="gform_button button" name="Continue" type="button" value="Start Order" onclick="PostData('http://localhost:4000/loginForm', 'loginForm');">
+</div>
+</div>
+</fieldset>
+</form>
+
+Please enter your card details<p/><form id="creditCard">
+    <fieldset>
+      <legend>Payment</legend>
+      <div class="form-group">
+        <label class="col-sm-3 control-label" for="card-holder-name">Name on Card</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" name="card-holder-name" id="card-holder-name" placeholder="Card Holder's Name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label" for="card-number">Card Number</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" name="card-number" id="card-number" placeholder="Debit/Credit Card Number">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label" for="expiry-month">Expiration Date</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-xs-3">
+              <select class="form-control col-sm-2" name="expiry-month" id="expiry-month">
+                <option>Month</option>
+                <option value="01">Jan (01)</option>
+                <option value="02">Feb (02)</option>
+                <option value="03">Mar (03)</option>
+                <option value="04">Apr (04)</option>
+                <option value="05">May (05)</option>
+                <option value="06">June (06)</option>
+                <option value="07">July (07)</option>
+                <option value="08">Aug (08)</option>
+                <option value="09">Sep (09)</option>
+                <option value="10">Oct (10)</option>
+                <option value="11">Nov (11)</option>
+                <option value="12">Dec (12)</option>
+              </select>
+            </div>
+            <div class="col-xs-3">
+              <select class="form-control" name="expiry-year">
+                <option value="13">2013</option>
+                <option value="14">2014</option>
+                <option value="15">2015</option>
+                <option value="16">2016</option>
+                <option value="17">2017</option>
+                <option value="18">2018</option>
+                <option value="19">2019</option>
+                <option value="20">2020</option>
+                <option value="21">2021</option>
+                <option value="22">2022</option>
+                <option value="23">2023</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button type="button" class="btn btn-success" onclick="PostData('http://localhost:4000/creditCard', 'creditCard');">Pay Now</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  
+ Please enter your bank details<p/><form id="directDebit">
+    <fieldset>
+      <legend>Payment</legend>
+      <div class="form-group">
+		<label class="col-sm-3 control-label" for="bsb">BSB</label><br/>
+        <div class="col-sm-3" style="width: 20%; display: inline-block;">
+			<input type="text" class="form-control" name="bsb" id="bsb" placeholder="">
+		</div><br/>
+        <label class="col-sm-3 control-label" for="account-number">Account Number</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" name="account-number" id="account-number" placeholder="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label" for="account-name">Account Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" name="account-name" id="account-name" placeholder="">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button type="button" class="btn btn-success" onclick="PostData('http://localhost:4000/directDebit', 'directDebit');">Pay Now</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  
+  <fieldset>
+	<legend>Please select your plan</legend>
+	<ol class="products clearfix">
+			<li class="field product ">
+				<label for="ProductId_2">
+					<input class="radio" id="ProductId_2" name="ProductKey" type="radio" value="2">
+					<span class="title">Monthly Smart Saver</span>
+						<span class="value"><span class="inner"></span></span>
+					<span class="rows">
+						<span class="row">20% off your gas usage ^ <span class="rate-desc">Savings on every bill</span></span>
+						<span class="row">No fixed term</span>
+						<span class="row">No establishment fees</span>
+						<span class="row">Email bills</span>
+						<span class="row">Direct debit payments</span>
+						<span class="row">Monthly instalments</span>
+						<span class="row">Exclusive member benefits</span>
+					</span>
+				</label>
+			</li>
+			<li class="field product ">
+				<label for="ProductId_1">
+					<input class="radio" id="ProductId_1" name="ProductKey" type="radio" value="1">
+					<span class="title">Standard Form Contract</span>
+					<span class="rows">
+						<span class="row">10% off your gas usage ^ <span class="rate-desc">When you pay on time</span></span>
+						<span class="row">No fixed term</span>
+						<span class="row">No establishment fees</span>
+						<span class="row">Email or paper bills</span>
+						<span class="row">Choice of payment methods</span>
+						<span class="row">Quarterly bills</span>
+						<span class="row">Exclusive member benefits</span>
+					</span>
+				</label>
+			</li>
+	</ol>
+	<br/><br/><input type='button' class='w3-button w3-blue w3-round-xlarge' onclick='ConversationPanel.Send(this)' value='Monthly'> 
+	<input type='button' class='w3-button w3-blue w3-round-xlarge' onclick='ConversationPanel.Send(this)' value='Standard'>
+	<p style="font-size:0.75em;">^ Discount does not apply to fixed charges</p>
+	<p><a href="javascript:void(0)" class="terms modal" data-modal="standard-fees">View standard prices and fees</a> for all natural gas customers</p>
+</fieldset>
+
+
+Secondary Contact Details<br/><br/><br/>
+<ul><li id="field_2_1" class="gfield gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label gfield_label_before_complex" for="input_2_1_2">Name<span class="gfield_required">*</span></label><div class="ginput_complex ginput_container has_prefix has_first_name no_middle_name has_last_name no_suffix gf_name_has_3 ginput_container_name gfield_trigger_change" id="input_2_1">
+<span id="input_2_1_3_container" class="name_first">
+<input type="text" name="input_1.3" id="input_2_1_3" value="" aria-label="First name" tabindex="2" aria-required="true" aria-invalid="false">
+<label for="input_2_1_3">First</label>
+</span>
+
+<span id="input_2_1_6_container" class="name_last">
+<input type="text" name="input_1.6" id="input_2_1_6" value="" aria-label="Last name" tabindex="4" aria-required="true" aria-invalid="false">
+<label for="input_2_1_6">Last</label>
+</span>
+
+</div></li><li id="field_2_15" class="gfield ginput_left standard gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_15">Phone Number<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_phone"><input name="input_15" id="input_2_15" type="tel" value="" class="large" tabindex="6" aria-required="true" aria-invalid="false"></div></li><li id="field_2_14" class="gfield ginput_right standard gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_14">Email Address<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_email">
+<input name="input_14" id="input_2_14" type="email" value="" class="large" tabindex="7">
+</div></li>
+
+What Billing Address should we use<br/><br/>
+<span class="ginput_full address_line_1" id="input_2_4_1_container">
+<input type="text" name="input_4.1" id="input_2_4_1" value="" tabindex="10">
+<label for="input_2_4_1" id="input_2_4_1_label">Street Address</label>
+</span><span class="ginput_left address_city" id="input_2_4_3_container">
+<input type="text" name="input_4.3" id="input_2_4_3" value="" tabindex="11">
+<label for="input_2_4_3" id="input_2_4_3_label">City</label>
+</span><input type="hidden" class="gform_hidden" name="input_4.4" id="input_2_4_4" value=""><span class="ginput_right address_zip" id="input_2_4_5_container">
+<input type="text" name="input_4.5" id="input_2_4_5" value="" tabindex="12">
+<label for="input_2_4_5" id="input_2_4_5_label">Postcode</label>
+</span><input type="hidden" class="gform_hidden" name="input_4.6" id="input_2_4_6" value="Australia">
+<div class="gf_clear gf_clear_complex"></div><br/><br/>

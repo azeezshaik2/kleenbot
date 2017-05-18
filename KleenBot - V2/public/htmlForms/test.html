@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="css/seahorse_slimhead.css">
+  <link rel="stylesheet" href="css/signup.css">
+  <link rel="stylesheet" href="css/style.css">
+
+
+Please enter your details<p/><form id="customerDetails">	
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style=""><a id="gf_2" class="gform_anchor"></a>
+<div class="gform_body"><ul id="gform_fields_2" class="gform_fields top_label form_sublabel_below description_below"><li id="field_2_35" class="gfield gfield_html gfield_html_formatted gfield_no_follows_desc field_sublabel_below field_description_below gfield_visibility_visible"><fieldset>
+<legend>Contact Details</legend>
+<ul><li id="field_2_1" class="gfield gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label gfield_label_before_complex" for="input_2_1_2">Name<span class="gfield_required">*</span></label><div class="ginput_complex ginput_container has_prefix has_first_name no_middle_name has_last_name no_suffix gf_name_has_3 ginput_container_name gfield_trigger_change" id="input_2_1">
+<span id="input_2_1_2_container" class="name_prefix name_prefix_select">
+<select name="input_1.2" id="input_2_1_2" aria-label="Name prefix" tabindex="1">
+<option value=""></option><option value="Mr.">Mr.</option><option value="Mrs.">Mrs.</option><option value="Miss">Miss</option><option value="Ms.">Ms.</option><option value="Dr.">Dr.</option><option value="Prof.">Prof.</option><option value="Rev.">Rev.</option>
+</select><span class="ico icon-chevron-down2"></span>
+<label for="input_2_1_2">Title</label>
+</span>
+<span id="input_2_1_3_container" class="name_first">
+<input type="text" name="input_1.3" id="input_2_1_3" value="" aria-label="First name" tabindex="2" aria-required="true" aria-invalid="false">
+<label for="input_2_1_3">First</label>
+</span>
+
+<span id="input_2_1_6_container" class="name_last">
+<input type="text" name="input_1.6" id="input_2_1_6" value="" aria-label="Last name" tabindex="4" aria-required="true" aria-invalid="false">
+<label for="input_2_1_6">Last</label>
+</span>
+
+</div></li><li id="field_2_15" class="gfield ginput_left standard gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_15">Phone Number<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_phone"><input name="input_15" id="input_2_15" type="tel" value="" class="large" tabindex="6" aria-required="true" aria-invalid="false"></div></li><li id="field_2_14" class="gfield ginput_right standard gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible"><label class="gfield_label" for="input_2_14">Email Address<span class="gfield_required">*</span></label><div class="ginput_container ginput_container_email">
+<input name="input_14" id="input_2_14" type="email" value="" class="large" tabindex="7">
+</div></li>
+
+Please create your account login<br/>
+<span id="input_2_1_3_container" class="name_first">
+<input type="text" name="username" id="input_2_1_3" value="" aria-label="First name" tabindex="2" aria-required="true" aria-invalid="false">
+<label for="input_2_1_3">Username</label>
+</span>
+
+<span id="input_2_1_6_container" class="name_last">
+<input type="text" name="password" id="input_2_1_6" value="" aria-label="Last name" tabindex="4" aria-required="true" aria-invalid="false">
+<label for="input_2_1_6">Password</label>
+</span>
+
+<div id="field_2_15" class="gfield ginput_left standard gfield_contains_required field_sublabel_below field_description_below gfield_visibility_visible">
+<input type="button" id="gform_submit_button_2" class="gform_button button" value="Submit" tabindex="35" onclick="PostData('http://localhost:4000/naturalGas', 'customerDetails');" onkeypress="PostData('http://localhost:4000/naturalGas', 'customerDetails');">
+</div>
+</div>
+</form>
+
+<section id="content">
+<form id="switchForm" action="/natural-gas/sign-up/property-details" method="post">
+            <fieldset>
+                <legend>What address do you want gas supplied to?</legend>
+                <div class="cleafix">
+                    <div class="field streetaddress">
+                        <label for="ConnectionStreet">Street Address <span class="req">*</span><span class="hint">Required</span></label>
+                        <input autocomplete="off" class="text placeholder" data-val="1/200 Smith Street" id="ConnectionStreet" name="ConnectionStreet" placeholder="1/200 Smith Street" spellcheck="false" type="text" value="">
+                    </div>
+                    <div class="field suburb">
+                        <label for="ConnectionSuburb">Suburb <span class="req">*</span><span class="hint">Required</span></label>
+                        <input autocomplete="off" class="text placeholder" data-val="Murdoch" id="ConnectionSuburb" name="ConnectionSuburb" placeholder="Murdoch" spellcheck="false" type="text" value="">
+                    </div>
+                    <div class="field postcode">
+                        <label for="ConnectionPostcode">Postcode</label>
+                        <input autocomplete="off" class="numbers-only text placeholder" data-val="6150" id="ConnectionPostcode" inputmode="numeric" maxlength="4" name="ConnectionPostcode" pattern="[0-9]{4}" placeholder="6150" spellcheck="false" type="number" value="">
+                    </div>
+                </div>
+            </fieldset>
+        </section>
+        <footer>
+            <div class="clearfix">
+                <input type="hidden" id="direction" name="direction">
+                <input type="hidden" id="clientTest" name="clientTest" value="JS=1">
+                <button class="blue continue icon" type="button" data-val="Continue" name="clicked" value="Continue" onclick="PostData('http://localhost:4000/switchAddress', 'switchForm');">Continue <span class="ico icon-chevron-right"></span></button>
+                    <button class="grey previous icon-left" type="button" data-val="Previous" name="clicked" value="Previous">Previous <span class="ico icon-chevron-left"></span></button>
+            </div>
+        </footer>
+</form></section>
+
+<section id="content">
+<form id="moveForm" action="/natural-gas/sign-up/property-details" method="post">
+            <fieldset>
+                <legend>What address do you want gas supplied to?</legend>
+                <div class="cleafix">
+                    <div class="field streetaddress">
+                        <label for="ConnectionStreet">Street Address <span class="req">*</span><span class="hint">Required</span></label>
+                        <input autocomplete="off" class="text placeholder" data-val="1/200 Smith Street" id="ConnectionStreet" name="ConnectionStreet" placeholder="1/200 Smith Street" spellcheck="false" type="text" value="">
+                    </div>
+                    <div class="field suburb">
+                        <label for="ConnectionSuburb">Suburb <span class="req">*</span><span class="hint">Required</span></label>
+                        <input autocomplete="off" class="text placeholder" data-val="Murdoch" id="ConnectionSuburb" name="ConnectionSuburb" placeholder="Murdoch" spellcheck="false" type="text" value="">
+                    </div>
+                    <div class="field postcode">
+                        <label for="ConnectionPostcode">Postcode</label>
+                        <input autocomplete="off" class="numbers-only text placeholder" data-val="6150" id="ConnectionPostcode" inputmode="numeric" maxlength="4" name="ConnectionPostcode" pattern="[0-9]{4}" placeholder="6150" spellcheck="false" type="number" value="">
+                    </div>
+                </div>
+            </fieldset>
+			<fieldset id="moveInDate">
+				<legend>What date should we start providing gas?</legend>
+				<p><strong>Please note:</strong> you must give us at least two business days notice, and the move in date can't be more than 102 days in the future.</p>
+				<div class="field moveindate">
+					<label for="MoveInDate">Move in date <span class="req">*</span><span class="hint">Required</span></label>
+						<input autocomplete="off" class="text" id="MoveInDate" name="MoveInDate" placeholder="DD-MM-YYYY" type="date" min="2017-05-03" max="2050-01-01" spellcheck="false" value="2017-05-03">
+				</div>
+			</fieldset>
+        <footer>
+            <div class="clearfix">
+                <input type="hidden" id="direction" name="direction">
+                <input type="hidden" id="clientTest" name="clientTest" value="JS=1">
+                <button class="blue continue icon" type="button" data-val="Continue" name="clicked" value="Continue" onclick="PostData('http://localhost:4000/moveAddress', 'moveForm');">Continue <span class="ico icon-chevron-right"></span></button>
+                    <button class="grey previous icon-left" type="button" data-val="Previous" name="clicked" value="Previous">Previous <span class="ico icon-chevron-left"></span></button>
+            </div>
+        </footer>
+</form></section>

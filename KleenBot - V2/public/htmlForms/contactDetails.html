@@ -1,0 +1,177 @@
+<link rel="stylesheet" href="css/seahorse_slimhead.css">
+  <link rel="stylesheet" href="css/signup.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <form id="contactDetails">	
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style="">
+<div class="gform_body">
+<fieldset>
+	<legend>Tell us your contact details</legend>
+	<ul class="error-list">
+		<li></li>
+	</ul>
+	<div class="clearfix">
+		<div class="field title select">
+			<label for="PrimaryBillingContactTitle">Title <span class="req">*</span><span class="hint">Required</span></label>
+			<select class="select dropdown" id="PrimaryBillingContactTitle" name="PrimaryBillingContactTitle"><option disabled="disabled" selected="selected" value="">Please select...</option><option value="Dr">Dr</option><option value="Miss">Miss</option><option value="Ms">Ms</option><option value="Mr">Mr</option><option value="Mrs">Mrs</option><option value="Sir">Sir</option></select>
+		</div>
+		<div class="field col3">
+			<label for="PrimaryBillingContactFirstName">First Name <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="PrimaryBillingContactFirstName" maxlength="150" name="PrimaryBillingContactFirstName" type="text" value="">
+		</div>
+		<div class="field col3">
+			<label for="PrimaryBillingContactMiddleName">Middle Name</label>
+			<input autocomplete="off" class="text" id="PrimaryBillingContactMiddleName" maxlength="60" name="PrimaryBillingContactMiddleName" type="text" value="">
+		</div>
+		<div class="field col3 last">
+			<label for="PrimaryBillingContactSurname">Last Name <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="PrimaryBillingContactSurname" maxlength="60" name="PrimaryBillingContactSurname" type="text" value="">
+		</div>
+		<div class="field date col3">
+			<label for="DateOfBirth">Date of Birth <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="DateOfBirth" max="2017-05-12" min="1900-01-01" name="DateOfBirth" placeholder="DD/MM/YYYY" type="date" value="">
+		</div>
+		<div class="field col3">
+			<label for="PrimaryBillingContactEmailAddress">
+				Email
+					<span class="req">*</span><span class="hint">Required</span>
+
+			</label>
+<input autocomplete="off" class="text" id="PrimaryBillingContactEmailAddress" maxlength="200" name="PrimaryBillingContactEmailAddress" type="email" value="">                    </div>
+		<div class="field col3 last">
+			<label for="PrimaryBillingContactConfirmEmailAddress">
+				Confirm Email
+					<span class="req">*</span><span class="hint">Required</span>
+			</label>
+<input autocomplete="off" class="text" id="PrimaryBillingContactConfirmEmailAddress" maxlength="200" name="PrimaryBillingContactConfirmEmailAddress" type="email" value="">                    </div>
+	</div>
+	<div class="contactnumbers clearfix">
+		<p><strong>Please note:</strong> You must enter at least one contact number (mobile, after hours or work).</p>
+		<div class="field col3">
+			<label for="PrimaryBillingContactMobileNumber">Mobile Number <span class="hint">Required</span></label>
+			<input autocomplete="off" class="numbers-and-spaces-only text" id="PrimaryBillingContactMobileNumber" maxlength="40" name="PrimaryBillingContactMobileNumber" type="tel" value="">
+		</div>
+		<div class="field col3">
+			<label for="PrimaryBillingContactAfterHoursNumber">After Hours Number</label>
+			<input autocomplete="off" class="numbers-and-spaces-only text" id="PrimaryBillingContactAfterHoursNumber" maxlength="40" name="PrimaryBillingContactAfterHoursNumber" type="tel" value="">
+		</div>
+		<div class="field col3 last">
+			<label for="PrimaryBillingContactWorkNumber">Work Number</label>
+			<input autocomplete="off" class="numbers-and-spaces-only text" id="PrimaryBillingContactWorkNumber" maxlength="40" name="PrimaryBillingContactWorkNumber" type="tel" value="">
+		</div>
+	</div>
+	<input type="hidden" name="carrier" value="contactDetails"/>
+	<button class="blue continue icon" type="submit" data-val="Continue" name="clicked" value="Continue" onclick="PostData('http://localhost:4000/naturalGas', 'contactDetails');">Continue</button>
+</fieldset>
+</div>
+</div>
+</form>
+
+<form id="secondaryContactDetails">	
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style="">
+<div class="gform_body">
+<div class="field checkbox">
+	<label for="HasSecondaryBillingContact">
+		<span>Would you like to list another person on this account?</span>
+		<span class="extra">This will allow them to make account enquiries on your behalf.</span>
+	</label>
+</div>
+<fieldset id="secondaryContact" class="hidden" style="display: block;">
+	<legend>Secondary contact details</legend>
+	<div class="clearfix">
+		<div class="field col3 select">
+			<label for="SecondaryBillingContactTitle">Title <span class="req">*</span><span class="hint">Required</span></label>
+			<select class="select dropdown" id="SecondaryBillingContactTitle" name="SecondaryBillingContactTitle"><option disabled="disabled" selected="selected" value="">Please select...</option><option value="Dr">Dr</option><option value="Miss">Miss</option><option value="Ms">Ms</option><option value="Mr">Mr</option><option value="Mrs">Mrs</option><option value="Sir">Sir</option></select>
+		</div>
+		<div class="field col3">
+			<label for="SecondaryBillingContactFirstName">First Name <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="SecondaryBillingContactFirstName" maxlength="150" name="SecondaryBillingContactFirstName" type="text" value="">
+		</div>
+		<div class="field col3 last">
+			<label for="SecondaryBillingContactSurname">Last Name <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="SecondaryBillingContactSurname" maxlength="60" name="SecondaryBillingContactSurname" type="text" value="">
+		</div>
+	</div>
+	<div class="clearfix">
+		<div class="field col3 select">
+			<label for="SecondaryBillingContactRelationship">Relationship <span class="req">*</span><span class="hint">Required</span></label>
+			<select class="select dropdown" id="SecondaryBillingContactRelationship" name="SecondaryBillingContactRelationship"><option disabled="disabled" selected="selected" value="">Please select...</option><option value="Spouse">Spouse</option><option value="DeFacto">De Facto</option><option value="Partner">Partner</option><option value="Relative">Relative</option><option value="CoTenant">Co-Tenant</option><option value="Other">Other</option></select>
+		</div>
+		<div class="field col3">
+			<label for="SecondaryContactDateOfBirth">Date of Birth <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="SecondaryBillingContactDateOfBirth" max="2017-05-12" min="1900-01-01" name="SecondaryBillingContactDateOfBirth" placeholder="DD/MM/YYYY" type="date" value="">
+		</div>
+	</div>
+	<input type="hidden" name="carrier" value="secondaryContactDetails"/>
+	<button class="blue continue icon" type="submit" data-val="Continue" name="clicked" value="Continue" onclick="PostData('http://localhost:4000/naturalGas', 'secondaryContactDetails');">Continue</button>
+</fieldset>
+</div>
+</div>
+</form>
+
+<form id="billingDetails">	
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style="">
+<div class="gform_body">
+<div class="field checkbox">
+	<label for="HasDifferentBillingAddress">
+		<span>Is your billing address different from your supply address?</span>
+	</label>
+</div>
+<fieldset id="altBillingAddress" class="hidden" style="display: block;">
+	<legend>What billing address should we use?</legend>
+	<div class="clearfix">
+		<div class="field streetaddress">
+			<label for="AddressLine1">Street Address <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="AddressLine1" maxlength="240" name="AddressLine1" type="text" value="">
+		</div>
+		<div class="field suburb">
+			<label for="AddressCity">Suburb <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="AddressCity" maxlength="46" name="AddressCity" type="text" value="">
+		</div>
+		<div class="field postcode">
+			<label for="AddressPostcode">Postcode <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="numbers-only text" id="AddressPostcode" inputmode="numeric" maxlength="4" min="0" name="AddressPostcode" pattern="[0-9]{4}" type="number" value="">
+		</div>
+	</div>
+	<div class="field title select">
+		<label for="AddressState">State <span class="req">*</span><span class="hint">Required</span></label>
+		<select class="select dropdown" id="AddressState" name="AddressState"><option disabled="disabled" selected="selected" value="">Please select...</option><option value="ACT">ACT</option><option value="NSW">New South Wales</option><option value="NT">Northern Territory</option><option value="QLD">Queensland</option><option value="SA">South Australia</option><option value="TAS">Tasmania</option><option value="VIC">Victoria</option><option value="WA">Western Australia</option></select>
+	</div>
+	<input type="hidden" name="carrier" value="billingDetails"/>
+	<button class="blue continue icon" type="submit" data-val="Continue" name="clicked" value="Continue" onclick="PostData('http://localhost:4000/naturalGas', 'billingDetails');">Continue</button>
+</fieldset>
+</div>
+</div>
+</form>
+
+<form id="createPassword">	
+<div class="gf_browser_chrome gform_wrapper" id="gform_wrapper_2" style="">
+<div class="gform_body">
+<fieldset id="accountSecurity" class="password-validation">
+	<legend>Please create a password for your My Account</legend>
+	<div class="clearfix">
+		<div class="field password">
+			<label for="OnlineAccountPassword">Password <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="OnlineAccountPassword" name="OnlineAccountPassword" type="password">
+		</div>
+		<div class="field password">
+			<label for="OnlineAccountConfirmPassword">Confirm Password <span class="req">*</span><span class="hint">Required</span></label>
+			<input autocomplete="off" class="text" id="OnlineAccountConfirmPassword" name="OnlineAccountConfirmPassword" type="password">
+		</div>
+	</div>
+	<div class="pass-vali">
+		<h5>To ensure your details are secure, your password must:</h5>
+		<ul>
+			<li id="rule-8char"><span class="ico"></span> Contain at least 8 characters</li>
+			<li id="rule-1numb"><span class="ico"></span> Contain at least one number</li>
+			<li id="rule-2case"><span class="ico"></span> Contain at least one uppercase and one lowercase letter</li>
+			<li id="rule-name"><span class="ico"></span> Not include your name</li>
+			<li id="rule-match"><span class="ico"></span> My Account Password and Confirm Password must be the same</li>
+		</ul>
+	</div>
+	<input type="hidden" name="carrier" value="createPassword"/>
+	<button class="blue continue icon" type="submit" data-val="Continue" name="clicked" value="Continue" onclick="PostData('http://localhost:4000/naturalGas', 'createPassword');">Continue</button>
+</fieldset>
+</div>
+</div>
+</form>
